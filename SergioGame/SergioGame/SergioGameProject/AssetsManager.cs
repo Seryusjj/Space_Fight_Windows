@@ -19,7 +19,9 @@ using WaveEngine.Framework.Physics2D;
 
 namespace SergioGameProject
 {
-
+    /// <summary>
+    /// Class responsible for creating entities used in the game
+    /// </summary>
     static class AssetsManager
     {
         private static int redLaserCount=0;
@@ -41,6 +43,7 @@ namespace SergioGameProject
 
             return mine;
         }
+
 
         public static Entity GetAsteroid()
         {
