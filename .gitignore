@@ -1,0 +1,10 @@
+# Extracted from https://github.com/ulrich/macaron-factory/blob/master/.gitignore
+# Ignore all dotfiles...
+.*
+# except for .gitignore
+!.gitignore
+
+#Ignore all visual studio generated stuff
+SergioGame/SergioGame/bin
+SergioGame/SergioGame/obj
+SergioGame/SergioGameProject/bin
