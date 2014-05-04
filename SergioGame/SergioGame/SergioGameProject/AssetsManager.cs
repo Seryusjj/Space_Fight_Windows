@@ -19,6 +19,7 @@ using WaveEngine.Framework.Physics2D;
 
 namespace SergioGameProject
 {
+
     static class AssetsManager
     {
         private static int redLaserCount=0;
