@@ -154,10 +154,7 @@ namespace SergioGameProject
             return background;
         }
 
-        public static Entity GetJoystick() {
-            return null;
-        
-        }
+
     }
 
 

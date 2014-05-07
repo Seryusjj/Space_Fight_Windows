@@ -17,6 +17,8 @@ using WaveEngine.Framework.UI;
 using WaveEngine.Framework.Physics2D;
 using System.Collections;
 using System.Collections.Generic;
+using WaveEngine.Common.Media;
+using WaveEngine.Framework.Sound;
 #endregion
 
 namespace SergioGameProject
@@ -27,6 +29,7 @@ namespace SergioGameProject
         public int maxasteroids = 10;
         public int puntos = 0;
         public Boolean isPlayerDestroy = false;
+
 
         public Entity player = AssetsManager.GetPlayer();
 
@@ -59,6 +62,8 @@ namespace SergioGameProject
 
         }
 
+
+
         protected override void CreateScene()
         {
             EntityManager.Add(AssetsManager.GetBackground());
@@ -67,9 +72,41 @@ namespace SergioGameProject
             EntityManager.Add(proyectileManager);
             initAsteroids(EntityManager);
 
+            //SoundBank bank = new SoundBank(Assets);
+            //WaveServices.SoundPlayer.RegisterSoundBank(bank);
+
+            //Register sounds
+            
+          //  bank.Add(SoundManager.getGameLoopSound());
+
+
+
             this.AddSceneBehavior(new CollisionSceneBehavior(), SceneBehavior.Order.PostUpdate);
+            //WaveServices.MusicPlayer.Play(new MusicInfo("Content/Music/game loop.mp3"));
 
 
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+
+            // Play Sound
+             WaveServices.SoundPlayer.Play(SoundManager.getGameLoopSound());
+            //WaveServices.SoundPlayer.Play(sound2);
+
+            //WaveServices.TimerFactory.CreateTimer("Timer1", TimeSpan.FromSeconds(4),
+            //() =>
+            //{
+            //    WaveServices.SoundPlayer.Play(sound3);
+            //});
+
+            //WaveServices.TimerFactory.CreateTimer("Timer2", TimeSpan.FromSeconds(2),
+            //() =>
+            //{
+            //    WaveServices.SoundPlayer.Play(sound4);
+            //},
+            //false);
         }
 
 

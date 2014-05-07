@@ -60,8 +60,6 @@ C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\b
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\mine.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\SkyLvl1.wpk
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\TouchController\joystickBackground.wpk
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\TouchController\joystickButton.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Proyectiles\laserGreen.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Proyectiles\laserGreenShot.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Proyectiles\laserRed.wpk
@@ -106,3 +104,6 @@ C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\b
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Bepu.xml
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\FarseerPhysics.xml
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\obj\x86\Debug\SergioGame.csprojResolveAssemblyReference.cache
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\game loop.mp3
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\rock_breaking.wma
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\laser.wav

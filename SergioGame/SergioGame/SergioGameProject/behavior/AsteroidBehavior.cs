@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using WaveEngine.Common.Graphics;
 using WaveEngine.Common.Input;
+using WaveEngine.Common.Media;
 using WaveEngine.Components.Animation;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Services;
+using WaveEngine.Framework.Sound;
 
 namespace SergioGameProject
 {
@@ -62,6 +64,7 @@ namespace SergioGameProject
         public void breakAsteroid()
         {
 
+            WaveServices.MusicPlayer.Play(SoundManager.getRockBrakingMusic());
             breaked = true;
 
         }

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SoundManager.cs" />
     <Compile Include="AssetsManager.cs" />
     <Compile Include="behavior\AsteroidBehavior.cs" />
     <Compile Include="behavior\LaserLightBehavior.cs" />
