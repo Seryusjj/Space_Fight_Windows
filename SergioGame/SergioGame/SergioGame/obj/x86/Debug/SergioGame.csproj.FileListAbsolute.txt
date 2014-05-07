@@ -104,6 +104,7 @@ C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\b
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Bepu.xml
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\FarseerPhysics.xml
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\obj\x86\Debug\SergioGame.csprojResolveAssemblyReference.cache
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\laser.wav
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\game_loop.mp3
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\rock_breaking.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\laser.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\flaunch.wpk

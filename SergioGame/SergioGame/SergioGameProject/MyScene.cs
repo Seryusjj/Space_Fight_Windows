@@ -61,7 +61,11 @@ namespace SergioGameProject
             // sound bank --//
             SoundBank bank = new SoundBank(Assets);
             WaveServices.SoundPlayer.RegisterSoundBank(bank);
+
+            //-- registering the different sounds --//
+            //bank.Add(SoundManager.getLaserShotSound());
             bank.Add(SoundManager.getRockBrakingSound());
+            
         }
    
 

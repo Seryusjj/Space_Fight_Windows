@@ -99,6 +99,9 @@ namespace SergioGameProject
                 timeRatio = shootRatio;
                 var a = trans2D.X;
                 var ProyectileManager = EntityManager.Find<ProyectileManager>("ProyectileManager");
+
+                WaveServices.SoundPlayer.Play(SoundManager.getLaserShotSound());
+
                 //WaveServices.MusicPlayer.Play(SoundManager.getLaserShotMusic());
                 ProyectileManager.ShootBullet(trans2D.X+trans2D.Rectangle.Width / 2, trans2D.Y-20, 0f, -5f); //dispara al medio
                 

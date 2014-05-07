@@ -64,7 +64,7 @@ namespace SergioGameProject
         public void breakAsteroid()
         {
 
-            WaveServices.MusicPlayer.Play(SoundManager.getRockBrakingMusic());
+            WaveServices.SoundPlayer.Play(SoundManager.getRockBrakingSound());
             breaked = true;
 
         }
