@@ -24,7 +24,8 @@ namespace SergioGameProject
     /// </summary>
     static class AssetsManager
     {
-        private static int redLaserCount=0;
+        private static int asteroidCounter=0;
+       
         public static Entity GetMine()
         {
 
@@ -45,14 +46,16 @@ namespace SergioGameProject
         }
 
 
-        public static Entity GetAsteroid()
+        public static Entity GetAsteroid(int intX,int initY,float ScaleX,float ScaleY)
         {
-            Entity asteroid = new Entity("Asteroid");
+            Entity asteroid = new Entity("Asteroid"+asteroidCounter);
             asteroid.AddComponent(new Transform2D()
             {
 
-                X = 100,
-                Y = 100,
+                X = intX,
+                Y = initY,
+                XScale = ScaleX,
+                YScale = ScaleY
                 
 
             });
@@ -64,17 +67,11 @@ namespace SergioGameProject
             asteroid.AddComponent(animations);
             asteroid.AddComponent(new AnimatedSpriteRenderer(DefaultLayers.Alpha));
             asteroid.AddComponent(new AsteroidBehavior());
+            asteroidCounter++;
             return asteroid;
         }
 
-        public static Entity GetRedLaser() { 
-            Entity laser = new Entity("redLaser_" + redLaserCount);
-            redLaserCount++;
-            laser.AddComponent(new Transform2D());
-            laser.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
 
-            return laser;
-        }
 
         public static Entity GetPlayer()
         {

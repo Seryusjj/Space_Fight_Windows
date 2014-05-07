@@ -15,6 +15,8 @@ using WaveEngine.Components.UI;
 
 using WaveEngine.Framework.UI;
 using WaveEngine.Framework.Physics2D;
+using System.Collections;
+using System.Collections.Generic;
 #endregion
 
 namespace SergioGameProject
@@ -22,19 +24,42 @@ namespace SergioGameProject
     public class MyScene : Scene
     {
 
+        public int maxasteroids = 5;
+
         public Entity player = AssetsManager.GetPlayer();
-        public Entity asteroid = AssetsManager.GetAsteroid();
+
+        public Entity asteroid = null;
         public ProyectileManager proyectileManager = new ProyectileManager();
+
+
+
+        private void initAsteroids(WaveEngine.Framework.Managers.EntityManager EntityManager)
+        {
+            System.Random random = new System.Random();
+            for (int i = 0; i < maxasteroids; i++)
+            {
+                //-- Scale values --//
+                //random.NextDouble() * (maximum - minimum) + minimum;
+                float scaleX = (float)random.NextDouble() * (1 - 0.3f) + 0.3f;
+                //float scaleY = (float)random.NextDouble() * (1 - 0.3f) + 0.3f;
+                Entity asteroid = AssetsManager.GetAsteroid(0, 0, scaleX, scaleX);
+                //-- Position values --//
+
+                int ancho = WaveServices.Random.Next((int)asteroid.FindComponent<Transform2D>().Rectangle.Width,(int)(WaveServices.ViewportManager.VirtualWidth - asteroid.FindComponent<Transform2D>().Rectangle.Width));
+                int alto = (int)(WaveServices.ViewportManager.VirtualHeight - asteroid.FindComponent<Transform2D>().Rectangle.Height);
+
+                EntityManager.Add(asteroid);
+            }
+
+        }
 
         protected override void CreateScene()
         {
             EntityManager.Add(AssetsManager.GetBackground());
             EntityManager.Add(player);
-            EntityManager.Add(asteroid);
+
             EntityManager.Add(proyectileManager);
-            var anim = asteroid.FindComponent<Animation2D>();
-            anim.CurrentAnimation = "Rotate";
-            anim.Play();
+            initAsteroids(EntityManager);
 
             this.AddSceneBehavior(new CollisionSceneBehavior(), SceneBehavior.Order.PostUpdate);
 
@@ -50,10 +75,12 @@ namespace SergioGameProject
 
 
 
+
+
         public class CollisionSceneBehavior : SceneBehavior
         {
             public MyScene myScene;
-            private float positonX = 0;
+
 
             protected override void ResolveDependencies()
             {
@@ -74,31 +101,44 @@ namespace SergioGameProject
 
                 Entity laser = null;
                 int count = 0;
-                foreach (Entity en in myScene.proyectileManager.Entity.ChildEntities)
+                foreach (Entity laserEntity in myScene.proyectileManager.Entity.ChildEntities)
                 {
                     count++;
-                    if (count >= myScene.proyectileManager.numBullets)
+                    for (int i = 0; i < myScene.maxasteroids; i++)
                     {
-                        break;
-                    }
-                    else if (en.IsActive && myScene.asteroid.IsActive)
-                    {
-                        laser = en;
+                        //asteroide a evaluar
+                        Entity asteroid = myScene.EntityManager.Find("Asteroid" + i);
 
-                        PerPixelCollider laserCollider = en.FindComponent<PerPixelCollider>();
-                        PerPixelCollider asteroidCollider = myScene.asteroid.FindComponent<PerPixelCollider>();
-
-
-                        if (laserCollider.Intersects(asteroidCollider))
+                        
+                        if (count >= myScene.proyectileManager.numBullets)
                         {
-                            String laserpath = laserCollider.TexturePath;
+                            break; //no hay mas proyectiles a evaluar
+                        }
 
-                            myScene.asteroid.FindComponent<AsteroidBehavior>().breakAsteroid();//rompe el aseroide
-                            en.Enabled = false; //consume el laser  
-                            en.RemoveComponent<PerPixelCollider>();
-                            en.AddComponent(new PerPixelCollider(laserpath, 0));
+                            //proyectil a evaluar
+                        else if (laserEntity.IsActive && asteroid.IsActive)
+                        {
+                            laser = laserEntity;
+
+                            PerPixelCollider laserCollider = laserEntity.FindComponent<PerPixelCollider>();
+
+                            
 
 
+                            PerPixelCollider asteroidCollider = asteroid.FindComponent<PerPixelCollider>();
+
+
+                            if (laserCollider.Intersects(asteroidCollider))
+                            {
+                                myScene.asteroid = asteroid;
+                                String laserpath = laserCollider.TexturePath;
+                                myScene.asteroid.FindComponent<AsteroidBehavior>().breakAsteroid();//rompe el aseroide
+                                laserEntity.Enabled = false; //consume el laser  
+                                laserEntity.RemoveComponent<PerPixelCollider>();//consume el laser
+                                laserEntity.AddComponent(new PerPixelCollider(laserpath, 0));//reinicializa el laser
+
+
+                            }
                         }
 
 
@@ -113,16 +153,20 @@ namespace SergioGameProject
             /// </summary>
             private void moveAsteroidAndReactivate()
             {
-                if (myScene.asteroid.Enabled == false)
+                if (myScene.asteroid != null)
                 {
-                    var transform = myScene.asteroid.FindComponent<Transform2D>();
-                    transform.X = 100;
-                    transform.Y = 100;
-
-                    myScene.asteroid.Enabled = true;
+                    if (myScene.asteroid.Enabled == false)
+                    {
+                        var transform = myScene.asteroid.FindComponent<Transform2D>();
+                        int ancho = (int)(WaveServices.ViewportManager.VirtualWidth - myScene.asteroid.FindComponent<Transform2D>().Rectangle.Width);
+                        int alto = (int)(WaveServices.ViewportManager.VirtualHeight - myScene.asteroid.FindComponent<Transform2D>().Rectangle.Height);
+                        transform.X = WaveServices.Random.Next(0, ancho);
+                        transform.Y = 0;
+                        myScene.asteroid.Enabled = true;
+                    }
                 }
-
             }
+
         }
 
         public SceneBehavior behavior { get; set; }

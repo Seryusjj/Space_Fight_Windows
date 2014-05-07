@@ -13,10 +13,14 @@ namespace SergioGameProject
 {
     class AsteroidBehavior : Behavior
     {
-        private const int SPEED = 1;
-        private const int RIGHT = 1;
-        private const int LEFT = -1;
-        private const int NONE = 0;
+
+
+
+        public int speed { get; set; }
+
+        private const int Xdirection = 0;
+
+
         private const int BORDER_OFFSET = 25;
 
         [RequiredComponent]
@@ -29,6 +33,7 @@ namespace SergioGameProject
         public AsteroidBehavior()
             : base("AsteroidBehavior")
         {
+            speed = 1;
             anim2D = null;
             trans2D = null;
             breaked = false;
@@ -44,6 +49,16 @@ namespace SergioGameProject
             }
         }
 
+
+        private void moveAsteroid(int gameTimeMilliseconds)
+        {
+            trans2D.X += Xdirection * speed * gameTimeMilliseconds;
+            trans2D.Y += 1;
+            if (trans2D.Y > WaveServices.ViewportManager.VirtualHeight) {
+                Owner.Enabled = false;
+            }
+        }
+
         public void breakAsteroid()
         {
 
@@ -56,13 +71,15 @@ namespace SergioGameProject
         protected override void Update(TimeSpan gameTime)
         {
 
-            //breakAsteroidtest();
-
+            
+            //si esta roto y tiene la aimacion de rotar, poner la anim de romper
             if (breaked && anim2D.CurrentAnimation != "Break")
             {
                 anim2D.CurrentAnimation = "Break";
             }
 
+            //si ya tiene la anim de romper y ha terminado
+            //eliminar el asteroide de la escena
             if (anim2D.CurrentAnimation.Equals("Break"))
             {
                 if (!anim2D.State.ToString().Equals("Playing"))
@@ -76,10 +93,14 @@ namespace SergioGameProject
 
             else
             {
+                //si la animacion llega al final reproducela de nuevo
                 if (!anim2D.State.ToString().Equals("Playing"))
                 {
                     anim2D.Play();
                 }
+                //desplaza el asteroide
+                moveAsteroid(gameTime.Milliseconds/10);
+
             }
 
 

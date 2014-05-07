@@ -51,7 +51,7 @@
     <Compile Include="behavior\LaserLightBehavior.cs" />
     <Compile Include="behavior\ProyectileBehavior.cs" />
     <Compile Include="behavior\ScrollBehavior2.cs" />
-    <Compile Include="behavior\ScrollBehavior.cs" />
+    <Compile Include="behavior\ScrollBehavior1.cs" />
     <Compile Include="behavior\PlayerBehavior.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="MyScene.cs" />

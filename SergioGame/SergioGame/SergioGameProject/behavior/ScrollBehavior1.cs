@@ -16,7 +16,7 @@ namespace SergioGameProject
         private static float scrollSpeed=300;
         private const float MAXSPEED = 0.5f;
 
-        private float sceneHeight=650;
+        private float sceneHeight;
 
         
         public static float ScrollSpeed
