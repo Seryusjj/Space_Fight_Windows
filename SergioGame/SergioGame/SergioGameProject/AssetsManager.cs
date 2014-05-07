@@ -59,7 +59,7 @@ namespace SergioGameProject
                 
 
             });
-            asteroid.AddComponent(new PerPixelCollider("Content/Asteroid.wpk", 10));
+            asteroid.AddComponent(new PerPixelCollider("Content/Asteroid.wpk", 0));
             asteroid.AddComponent(new Sprite("Content/Asteroid.wpk"));
             Animation2D animations = Animation2D.Create<TexturePackerGenericXml>("Content/Asteroid.xml");
             animations.Add("Rotate", new SpriteSheetAnimationSequence() { First = 1, Length = 26, FramesPerSecond = 12 });

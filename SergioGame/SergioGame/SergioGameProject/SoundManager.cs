@@ -26,21 +26,30 @@ namespace SergioGameProject
     /// </summary>
     static class SoundManager
     {
+        private static SoundInfo rockBreaking=null;
+        private static SoundInfo laserShot = null;
 
-        public static MusicInfo getRockBrakingMusic()
+        public static SoundInfo getRockBrakingSound()
         {
-            MusicInfo musicInfo = new MusicInfo("Content/Music/rock_breaking.wma");
+            if (rockBreaking == null) {
+                rockBreaking = new SoundInfo("Content/Music/rock_breaking.wpk");
+            }
+            return rockBreaking;
+        }
+
+        public static MusicInfo getLaserShoSound()
+        {
+            MusicInfo musicInfo = new MusicInfo("Content/Music/laser.wpk");//falta generear el wpk
             return musicInfo;
         }
 
-        public static MusicInfo getLaserShotMusic()
+        public static MusicInfo getGameLoopSound()
         {
-            MusicInfo musicInfo = new MusicInfo("Content/Music/laser.wma");
-            return musicInfo;
-        }
 
-        public static SoundInfo getGameLoopSound() {
-            return new SoundInfo("Content/Music/game loop.mp3");
+            MusicInfo gameLoop = new MusicInfo("Content/Music/game_loop.mp3");
+            
+            return gameLoop;
+
         }
     }
 

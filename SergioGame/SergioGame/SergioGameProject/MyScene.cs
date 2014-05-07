@@ -38,6 +38,34 @@ namespace SergioGameProject
 
 
 
+
+
+        protected override void CreateScene()
+        {
+            EntityManager.Add(AssetsManager.GetBackground());
+            EntityManager.Add(player);
+
+            EntityManager.Add(proyectileManager);
+            initAsteroids(EntityManager);
+
+            sounds();
+
+            this.AddSceneBehavior(new CollisionSceneBehavior(), SceneBehavior.Order.PostUpdate);
+        }
+
+
+        private void sounds() {
+            //-- game lopp --//
+            WaveServices.MusicPlayer.Play(SoundManager.getGameLoopSound());
+
+            // sound bank --//
+            SoundBank bank = new SoundBank(Assets);
+            WaveServices.SoundPlayer.RegisterSoundBank(bank);
+            bank.Add(SoundManager.getRockBrakingSound());
+        }
+   
+
+
         private void initAsteroids(WaveEngine.Framework.Managers.EntityManager EntityManager)
         {
             System.Random random = new System.Random();
@@ -50,63 +78,16 @@ namespace SergioGameProject
                 Entity asteroid = AssetsManager.GetAsteroid(0, 0, scaleX, scaleX);
                 //-- Position values --//
 
-                int ancho = WaveServices.Random.Next((int)asteroid.FindComponent<Transform2D>().Rectangle.Width,(int)(WaveServices.ViewportManager.VirtualWidth - asteroid.FindComponent<Transform2D>().Rectangle.Width));
+                int ancho = WaveServices.Random.Next((int)asteroid.FindComponent<Transform2D>().Rectangle.Width, (int)(WaveServices.ViewportManager.VirtualWidth - asteroid.FindComponent<Transform2D>().Rectangle.Width));
                 int alto = (int)(WaveServices.ViewportManager.VirtualHeight - asteroid.FindComponent<Transform2D>().Rectangle.Height);
 
                 Transform2D asteroidInitPosition = asteroid.FindComponent<Transform2D>();
                 asteroidInitPosition.X = ancho;
-               // asteroidInitPosition.Y = alto;
+                // asteroidInitPosition.Y = alto;
 
                 EntityManager.Add(asteroid);
             }
 
-        }
-
-
-
-        protected override void CreateScene()
-        {
-            EntityManager.Add(AssetsManager.GetBackground());
-            EntityManager.Add(player);
-
-            EntityManager.Add(proyectileManager);
-            initAsteroids(EntityManager);
-
-            //SoundBank bank = new SoundBank(Assets);
-            //WaveServices.SoundPlayer.RegisterSoundBank(bank);
-
-            //Register sounds
-            
-          //  bank.Add(SoundManager.getGameLoopSound());
-
-
-
-            this.AddSceneBehavior(new CollisionSceneBehavior(), SceneBehavior.Order.PostUpdate);
-            //WaveServices.MusicPlayer.Play(new MusicInfo("Content/Music/game loop.mp3"));
-
-
-        }
-
-        protected override void Start()
-        {
-            base.Start();
-
-            // Play Sound
-             WaveServices.SoundPlayer.Play(SoundManager.getGameLoopSound());
-            //WaveServices.SoundPlayer.Play(sound2);
-
-            //WaveServices.TimerFactory.CreateTimer("Timer1", TimeSpan.FromSeconds(4),
-            //() =>
-            //{
-            //    WaveServices.SoundPlayer.Play(sound3);
-            //});
-
-            //WaveServices.TimerFactory.CreateTimer("Timer2", TimeSpan.FromSeconds(2),
-            //() =>
-            //{
-            //    WaveServices.SoundPlayer.Play(sound4);
-            //},
-            //false);
         }
 
 
@@ -190,7 +171,7 @@ namespace SergioGameProject
                             PerPixelCollider asteroidCollider = asteroid.FindComponent<PerPixelCollider>();
 
 
-                            if (laserCollider.Intersects(asteroidCollider))
+                            if (laserCollider.Intersects(asteroidCollider) && asteroid.FindComponent<Animation2D>().CurrentAnimation.Equals("Rotate"))
                             {
                                 myScene.asteroid = asteroid;
                                 String laserpath = laserCollider.TexturePath;
