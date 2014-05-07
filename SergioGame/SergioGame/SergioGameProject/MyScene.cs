@@ -24,7 +24,9 @@ namespace SergioGameProject
     public class MyScene : Scene
     {
 
-        public int maxasteroids = 5;
+        public int maxasteroids = 10;
+        public int puntos = 0;
+        public Boolean isPlayerDestroy = false;
 
         public Entity player = AssetsManager.GetPlayer();
 
@@ -47,6 +49,10 @@ namespace SergioGameProject
 
                 int ancho = WaveServices.Random.Next((int)asteroid.FindComponent<Transform2D>().Rectangle.Width,(int)(WaveServices.ViewportManager.VirtualWidth - asteroid.FindComponent<Transform2D>().Rectangle.Width));
                 int alto = (int)(WaveServices.ViewportManager.VirtualHeight - asteroid.FindComponent<Transform2D>().Rectangle.Height);
+
+                Transform2D asteroidInitPosition = asteroid.FindComponent<Transform2D>();
+                asteroidInitPosition.X = ancho;
+               // asteroidInitPosition.Y = alto;
 
                 EntityManager.Add(asteroid);
             }
@@ -91,8 +97,31 @@ namespace SergioGameProject
             protected override void Update(TimeSpan gameTime)
             {
                 breakAsteroid();
+                collideWithPlayer();
                 moveAsteroidAndReactivate();
+                
 
+            }
+
+            private void collideWithPlayer() {
+                for (int i = 0; i < myScene.maxasteroids; i++)
+                {
+                    //asteroide a evaluar
+                    Entity asteroid = myScene.EntityManager.Find("Asteroid" + i);
+                    String asteroidState = asteroid.FindComponent<Animation2D>().CurrentAnimation;
+                    PerPixelCollider asteroidCollider = asteroid.FindComponent<PerPixelCollider>();
+                    AsteroidBehavior asteroidBehavior = asteroid.FindComponent<AsteroidBehavior>();
+                    PerPixelCollider playerColider = myScene.EntityManager.Find("Player").FindComponent<PerPixelCollider>();
+                    if (asteroid.Enabled == true && asteroidState.Equals("Rotate"))
+                    {
+                        if(asteroidCollider.Intersects(playerColider)){
+                            myScene.isPlayerDestroy = true;
+                            asteroidBehavior.breakAsteroid();
+                        }
+
+                    }
+                }
+                
             }
 
 
@@ -121,10 +150,6 @@ namespace SergioGameProject
                             laser = laserEntity;
 
                             PerPixelCollider laserCollider = laserEntity.FindComponent<PerPixelCollider>();
-
-                            
-
-
                             PerPixelCollider asteroidCollider = asteroid.FindComponent<PerPixelCollider>();
 
 
@@ -140,8 +165,6 @@ namespace SergioGameProject
 
                             }
                         }
-
-
 
                     }
                 }
@@ -162,14 +185,39 @@ namespace SergioGameProject
                         int alto = (int)(WaveServices.ViewportManager.VirtualHeight - myScene.asteroid.FindComponent<Transform2D>().Rectangle.Height);
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
+                        myScene.puntos += 10;//has destruido el asteriode sumas puntos
                         myScene.asteroid.Enabled = true;
+                    }
+                }
+
+                reactivateAsteroids();
+
+                
+
+
+            }
+
+            private void reactivateAsteroids() {
+                for (int i = 0; i < myScene.maxasteroids; i++)
+                {
+                    //asteroide a evaluar
+                    Entity asteroid = myScene.EntityManager.Find("Asteroid" + i);
+                    if (asteroid.Enabled == false)
+                    {
+                        var transform = asteroid.FindComponent<Transform2D>();
+                        int ancho = (int)(WaveServices.ViewportManager.VirtualWidth - asteroid.FindComponent<Transform2D>().Rectangle.Width);
+                        int alto = (int)(WaveServices.ViewportManager.VirtualHeight - asteroid.FindComponent<Transform2D>().Rectangle.Height);
+                        transform.X = WaveServices.Random.Next(0, ancho);
+                        transform.Y = 0;
+                        asteroid.Enabled = true;
+
                     }
                 }
             }
 
         }
 
-        public SceneBehavior behavior { get; set; }
+        
     }
 }
 

@@ -83,6 +83,7 @@ namespace SergioGameProject
                 Y = WaveServices.Platform.ScreenHeight / 2,
             });
             player.AddComponent(new Sprite("Content/Player.wpk"));
+            player.AddComponent(new PerPixelCollider("Content/Player.wpk", 10));
             Animation2D animations = Animation2D.Create<TexturePackerGenericXml>("Content/Player.xml");
             animations.Add("Idle", new SpriteSheetAnimationSequence() { First = 1, Length = 1, FramesPerSecond = 5 });
             animations.Add("Left", new SpriteSheetAnimationSequence() { First = 3, Length = 1, FramesPerSecond = 5 });

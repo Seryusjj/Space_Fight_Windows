@@ -5,6 +5,7 @@
 !.gitignore
 
 #Ignore all visual studio generated stuff
-SergioGame/SergioGame/bin
-SergioGame/SergioGame/obj
+SergioGame/SergioGame/bin/*
+SergioGame/SergioGame/obj/*
 SergioGame/SergioGameProject/bin
+SergioGame/*.suo
