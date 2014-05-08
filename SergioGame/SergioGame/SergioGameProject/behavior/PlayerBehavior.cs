@@ -14,7 +14,7 @@ namespace SergioGameProject
 
     class PlayerBehavior : Behavior
     {
-        
+
 
         private const int SPEED = 5;
         private const int RIGHT = 1;
@@ -24,7 +24,7 @@ namespace SergioGameProject
 
         public enum LaserStat { OneLaser, TwoLasers, ThreeLasers }
 
-        public LaserStat currentLaserStat{get;set;}
+        public LaserStat currentLaserStat { get; set; }
 
         private TimeSpan timeRatio;
         private TimeSpan shootRatio = TimeSpan.FromSeconds(0.5f);
@@ -96,40 +96,39 @@ namespace SergioGameProject
 
         private void Shoot(TimeSpan gameTime)
         {
-            if (timeRatio > TimeSpan.Zero)
+            if (shoot)
             {
-                timeRatio -= gameTime;
-            }
-            else
-            {
-                timeRatio = shootRatio;
-                var a = trans2D.X;
-                var ProyectileManager = EntityManager.Find<ProyectileManager>("ProyectileManager");
-                switch (currentLaserStat) { 
-                    case LaserStat.OneLaser:
-                        ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width / 2, trans2D.Y - 20, 0f, -5f);
-                        break;
-                    case LaserStat.TwoLasers:
-                        ProyectileManager.ShootBullet(trans2D.X, trans2D.Y+5, 0f, -5f);
-
-                        ProyectileManager.ShootBullet(trans2D.X+trans2D.Rectangle.Width, trans2D.Y+5, 0f, -5f);
-                        break;
-                    case LaserStat.ThreeLasers:
-                        ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width / 2, trans2D.Y - 20, 0f, -5f);
-                        ProyectileManager.ShootBullet(trans2D.X, trans2D.Y+5, 0f, -5f);
-
-                        ProyectileManager.ShootBullet(trans2D.X+trans2D.Rectangle.Width, trans2D.Y+5, 0f, -5f);
-                        break;
-
-                
-                
+                if (timeRatio > TimeSpan.Zero)
+                {
+                    timeRatio -= gameTime;
                 }
+                else
+                {
+                    timeRatio = shootRatio;
+                    var a = trans2D.X;
+                    var ProyectileManager = AssetsManager.GetCurrentLaserManager();
+                    switch (currentLaserStat)
+                    {
+                        case LaserStat.OneLaser:
+                            ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width / 2, trans2D.Y - 20, 0f, -5f);
+                            break;
+                        case LaserStat.TwoLasers:
+                            ProyectileManager.ShootBullet(trans2D.X, trans2D.Y + 5, 0f, -5f);
 
-                //WaveServices.MusicPlayer.Play(SoundManager.getLaserShotMusic());
-                 //dispara al medio
+                            ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width, trans2D.Y + 5, 0f, -5f);
+                            break;
+                        case LaserStat.ThreeLasers:
+                            ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width / 2, trans2D.Y - 20, 0f, -5f);
+                            ProyectileManager.ShootBullet(trans2D.X, trans2D.Y + 5, 0f, -5f);
 
-             
+                            ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width, trans2D.Y + 5, 0f, -5f);
+                            break;
 
+
+
+                    }
+
+                }
             }
 
         }

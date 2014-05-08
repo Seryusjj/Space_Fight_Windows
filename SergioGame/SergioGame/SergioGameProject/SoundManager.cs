@@ -22,7 +22,7 @@ using WaveEngine.Framework.Sound;
 namespace SergioGameProject
 {
     /// <summary>
-    /// Class responsible for creating entities used in the game
+    /// Class responsible for managing the sound creation on the game
     /// </summary>
     static class SoundManager
     {

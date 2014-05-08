@@ -21,17 +21,26 @@ using WaveEngine.Framework.UI;
 namespace SergioGameProject
 {
     /// <summary>
-    /// Class responsible for creating entities used in the game
+    /// Class responsible for managaing the different entitys in the game
     /// </summary>
     static class AssetsManager
     {
-        private static int asteroidCounter=0;
-       
-        public static Entity GetMine()
+        private static int asteroidCounter = 0;
+        private static int mineCounter = 0;
+        private static Entity player;
+        private static Entity background;
+        private static TextBlock textBlockForScoreInScreen;
+        private static Entity scoreInScreen;
+        private static Entity laserUpgradeThree;
+        private static ProyectileManager redLaserManager;
+        private static ProyectileManager greenLaserManager;
+
+
+        public static Entity CreateMine()
         {
 
-            
-            Entity mine = new Entity("mine").AddComponent(new Transform2D()
+
+            Entity mine = new Entity("mine"+mineCounter).AddComponent(new Transform2D()
             {
                 X = WaveServices.Platform.ScreenWidth / 2,
                 Y = WaveServices.Platform.ScreenHeight / 2,
@@ -40,45 +49,73 @@ namespace SergioGameProject
 
 
             mine.AddComponent(new Sprite("Content/mine.wpk"));
-            mine.AddComponent(new SpriteRenderer(DefaultLayers.Opaque));
+            mine.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+            mineCounter++;
 
 
             return mine;
         }
 
-        public static Entity LaserUpgradeObject() {
-            Entity laserUpgrade = new Entity("laserUpgrade").AddComponent(new Transform2D()
-            {
-            
-                X=100,
-                Y=100
-            });
-            laserUpgrade.AddComponent(new PerPixelCollider("Content/laserUpgrade.wpk",0));
-            laserUpgrade.AddComponent(new LaserUpgradeBehaviour());
-            laserUpgrade.AddComponent(new Sprite("Content/laserUpgrade.wpk"));
-            laserUpgrade.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-            laserUpgrade.Enabled = false;
-            return laserUpgrade;
-        }
-
-        public static TextBlock GetScoreText() {
-            TextBlock textblock = new TextBlock()
-            {
-                Margin = new Thickness(20, 40, 0, 0),
-                Text = "Score: 0",
-                BorderColor = Color.Green,
-                Foreground = Color.Green,
-            };
-
-            return textblock;
-        
-        
-        }
-
-
-        public static Entity GetAsteroid(int intX,int initY,float ScaleX,float ScaleY)
+        public static Entity GetLaserUpgradeThree()
         {
-            Entity asteroid = new Entity("Asteroid"+asteroidCounter);
+            if (laserUpgradeThree == null)
+            {
+                laserUpgradeThree = new Entity("laserUpgrade").AddComponent(new Transform2D()
+            {
+
+                X = 100,
+                Y = 100
+            });
+                laserUpgradeThree.AddComponent(new PerPixelCollider("Content/laserUpgrade.wpk", 0));
+                laserUpgradeThree.AddComponent(new LaserUpgradeBehaviour());
+                laserUpgradeThree.AddComponent(new Sprite("Content/laserUpgrade.wpk"));
+                laserUpgradeThree.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                laserUpgradeThree.Enabled = false;
+            }
+            return laserUpgradeThree;
+        }
+
+        /// <summary>
+        /// Return the TextBolck where de Score should be show
+        /// </summary>
+        /// <returns></returns>
+        public static Entity GetScoreText()
+        {
+            if (scoreInScreen == null)
+            {
+                textBlockForScoreInScreen = new TextBlock()
+                {
+                    Margin = new Thickness(20, 40, 0, 0),
+                    BorderColor = Color.Green,
+                    Foreground = Color.Green,
+                };
+                scoreInScreen = textBlockForScoreInScreen.Entity;
+            }
+            return scoreInScreen;
+        }
+
+
+        public static void SetTexOfScoreInScreen(String text)
+        {
+            if (textBlockForScoreInScreen == null)
+            {
+                GetScoreText();
+            }
+            textBlockForScoreInScreen.Text = text;
+
+        }
+
+        /// <summary>
+        /// Several instances, manage it transparently with names Asteroid1 ... Asteroidn
+        /// </summary>
+        /// <param name="intX"></param>
+        /// <param name="initY"></param>
+        /// <param name="ScaleX"></param>
+        /// <param name="ScaleY"></param>
+        /// <returns></returns>
+        public static Entity CreateAsteroid(int intX, int initY, float ScaleX, float ScaleY)
+        {
+            Entity asteroid = new Entity("Asteroid" + asteroidCounter);
             asteroid.AddComponent(new Transform2D()
             {
 
@@ -86,7 +123,7 @@ namespace SergioGameProject
                 Y = initY,
                 XScale = ScaleX,
                 YScale = ScaleY
-                
+
 
             });
             asteroid.AddComponent(new PerPixelCollider("Content/Asteroid.wpk", 0));
@@ -102,39 +139,54 @@ namespace SergioGameProject
         }
 
 
-
+        /// <summary>
+        /// just one instance per gameplay
+        /// </summary>
+        /// <returns></returns>
         public static Entity GetPlayer()
         {
-            
-            Entity player = new Entity("Player");
-            player.AddComponent(new Transform2D()
+            if (player == null)
             {
-                X = WaveServices.Platform.ScreenWidth / 2,
-                Y = WaveServices.Platform.ScreenHeight / 2,
-            });
-            player.AddComponent(new Sprite("Content/Player.wpk"));
-            player.AddComponent(new PerPixelCollider("Content/Player.wpk", 10));
-            Animation2D animations = Animation2D.Create<TexturePackerGenericXml>("Content/Player.xml");
-            animations.Add("Idle", new SpriteSheetAnimationSequence() { First = 1, Length = 1, FramesPerSecond = 5 });
-            animations.Add("Left", new SpriteSheetAnimationSequence() { First = 3, Length = 1, FramesPerSecond = 5 });
-            animations.Add("Right", new SpriteSheetAnimationSequence() { First = 4, Length = 1, FramesPerSecond = 5 });
-            animations.Add("Break", new SpriteSheetAnimationSequence() { First = 2, Length = 1, FramesPerSecond = 5 });
-            player.AddComponent(animations);
-            player.AddComponent(new AnimatedSpriteRenderer(DefaultLayers.Alpha));
-            player.AddComponent(new PlayerBehavior());
+                player = new Entity("Player");
+                player.AddComponent(new Transform2D()
+                {
+                    X = WaveServices.Platform.ScreenWidth / 2,
+                    Y = WaveServices.Platform.ScreenHeight / 2,
+                });
+                player.AddComponent(new Sprite("Content/Player.wpk"));
+                player.AddComponent(new PerPixelCollider("Content/Player.wpk", 10));
+                Animation2D animations = Animation2D.Create<TexturePackerGenericXml>("Content/Player.xml");
+                animations.Add("Idle", new SpriteSheetAnimationSequence() { First = 1, Length = 1, FramesPerSecond = 5 });
+                animations.Add("Left", new SpriteSheetAnimationSequence() { First = 3, Length = 1, FramesPerSecond = 5 });
+                animations.Add("Right", new SpriteSheetAnimationSequence() { First = 4, Length = 1, FramesPerSecond = 5 });
+                animations.Add("Break", new SpriteSheetAnimationSequence() { First = 2, Length = 1, FramesPerSecond = 5 });
+                player.AddComponent(animations);
+                player.AddComponent(new AnimatedSpriteRenderer(DefaultLayers.Alpha));
+                player.AddComponent(new PlayerBehavior());
+
+            }
+
             return player;
         }
 
 
-        public static Entity GetBackground() {
-            Entity background = new Entity("background");
-            background.AddChild(GetBackgroudPart1());
-            background.AddChild(GetBackgroudPart2());
+        public static Entity GetBackground()
+        {
+            if (background == null)
+            {
+                background = new Entity("background");
+                background.AddChild(GetBackgroudPart1());
+                background.AddChild(GetBackgroudPart2());
+            }
             return background;
-        
+
         }
 
-
+        /// <summary>
+        /// Los valores de escalado se dividen por 600 y 800 porque la imagen usada es
+        /// de tamaño 600 * 800
+        /// </summary>
+        /// <returns></returns>
         private static Entity GetBackgroudPart1()
         {
             Vector2 corner = Vector2.Zero;
@@ -182,6 +234,42 @@ namespace SergioGameProject
 
 
             return background;
+        }
+
+        public static ProyectileManager GetRedLaserManager()
+        {
+            if (redLaserManager == null) {
+                ProyectileManager.selectedBullet = ProyectileManager.Proyectiles.redLaser;
+                redLaserManager = new ProyectileManager("RedProyectileManager");
+                redLaserManager.Entity.Enabled = true;
+            }
+            return redLaserManager; 
+        }
+
+        public static ProyectileManager GetGreenLaserManager()
+        {
+            if (greenLaserManager == null)
+            {
+                ProyectileManager.selectedBullet = ProyectileManager.Proyectiles.greenLaser;
+                greenLaserManager = new ProyectileManager("GreenProyectileManager");
+                greenLaserManager.Entity.Enabled = false;
+            }
+            return greenLaserManager;
+        }
+
+
+        public static ProyectileManager GetCurrentLaserManager()
+        {
+
+
+            if (GetRedLaserManager().Entity.Enabled == true)
+            {
+                return GetRedLaserManager();
+            }
+            else {
+                return GetGreenLaserManager();
+            }
+        
         }
 
 

@@ -20,7 +20,7 @@ namespace SergioGameProject
     {
         public readonly int numBullets = 20;
         private int bulletIndex;
-        public Proyectiles selectedBullet = Proyectiles.greenLaser;
+        public static Proyectiles selectedBullet = Proyectiles.redLaser;
         public enum Proyectiles { greenLaser, redLaser }
         private int BulletIndex
         {
@@ -33,9 +33,9 @@ namespace SergioGameProject
 
 
 
-        private Entity Initialize() {
-            Entity entity = new Entity("ProyectileManager");
-
+        private Entity Initialize(String name) {
+            Entity entity = new Entity(name);
+            entity.Enabled = false;
             for (int i = 0; i < numBullets; i++)
             {
                 Entity toAdd = selectBullet("bullet" + i);
@@ -56,10 +56,11 @@ namespace SergioGameProject
 
 
 
-        public ProyectileManager()
+        public ProyectileManager(String name)
             : base()
         {
-            this.entity = Initialize();
+            
+            this.entity = Initialize(name);
         }
 
         private Entity selectBullet(String tag)
