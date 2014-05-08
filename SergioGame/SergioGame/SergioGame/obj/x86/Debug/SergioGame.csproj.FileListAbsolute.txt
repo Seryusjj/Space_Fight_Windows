@@ -54,12 +54,6 @@ C:\Users\Sergio\Documents\Visual Studio 2013\Projects\SergioGame\SergioGame\Serg
 C:\Users\Sergio\Documents\Visual Studio 2013\Projects\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Proyectiles\laserRedShot.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\obj\x86\Debug\SergioGame.exe
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\obj\x86\Debug\SergioGame.pdb
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Asteroid.xml
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player.xml
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Asteroid.wpk
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\mine.wpk
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player.wpk
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\SkyLvl1.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Proyectiles\laserGreen.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Proyectiles\laserGreenShot.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Proyectiles\laserRed.wpk
@@ -107,8 +101,16 @@ C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\o
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\game_loop.mp3
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\rock_breaking.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\laser7.wpk
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\laserUpgrade.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\UI\buttonStage1.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\UI\buttonStage2.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\UI\mainMenuBG.wpk
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\shield.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Common\Asteroid.xml
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\explosionSpriteSheet.xml
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\Player.xml
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Common\Asteroid.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Common\mine.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\explosionSpriteSheet.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\laserUpgrade.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\Player.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\shield.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Common\SkyLvl1.wpk

@@ -18,6 +18,7 @@ using WaveEngine.Components.UI;
 using WaveEngine.Framework.Physics2D;
 using WaveEngine.Common.Media;
 using WaveEngine.Framework.Sound;
+using SergioGameProject.assets;
 
 namespace SergioGameProject
 {
@@ -31,9 +32,10 @@ namespace SergioGameProject
 
         public static SoundInfo getRockBrakingSound()
         {
+            
             if (rockBreaking == null)
             {
-                rockBreaking = new SoundInfo("Content/Music/rock_breaking.wpk");
+                rockBreaking = new SoundInfo(PathManager.rockBreakingSound);
             }
             return rockBreaking;
         }
@@ -42,7 +44,7 @@ namespace SergioGameProject
         {
             if (laserShot == null)
             {
-                laserShot = new SoundInfo("Content/Music/laser7.wpk");
+                laserShot = new SoundInfo(PathManager.laserSound);
             }
             return laserShot;
         }
@@ -50,7 +52,7 @@ namespace SergioGameProject
         public static MusicInfo getGameLoopSound()
         {
 
-            MusicInfo gameLoop = new MusicInfo("Content/Music/game_loop.mp3");
+            MusicInfo gameLoop = new MusicInfo(PathManager.gameLoppMusic);
 
             return gameLoop;
 

@@ -23,12 +23,11 @@ using WaveEngine.Framework.Sound;
 
 namespace SergioGameProject
 {
-    public class MyScene : Scene
+    public class GameScene : Scene
     {
 
         public int maxAsteroids = 10;
         public int puntos = 0;
-        public Boolean isPlayerDestroyed = false;
         public Entity asteroid = null;
         public Boolean canBeDestroyed = false;
 
@@ -40,12 +39,14 @@ namespace SergioGameProject
             EntityManager.Add(AssetsManager.GetRedLaserManager());
             EntityManager.Add(AssetsManager.GetGreenLaserManager());//inhabilitado por defecto
 
-            initAsteroids(EntityManager);
+            InitAsteroids();
+            EntityManager.Add(AssetsManager.GetExplosion());
             EntityManager.Add(AssetsManager.GetLaserUpgradeThree());
 
             Sounds();
 
             EntityManager.Add(AssetsManager.GetScoreText());
+
             AssetsManager.SetTexOfScoreInScreen("Score: " + puntos);
 
             this.AddSceneBehavior(new CollisionSceneBehavior(), SceneBehavior.Order.PostUpdate);
@@ -100,11 +101,11 @@ namespace SergioGameProject
         }
 
 
-       
 
 
 
-        private void initAsteroids(WaveEngine.Framework.Managers.EntityManager EntityManager)
+
+        private void InitAsteroids()
         {
             System.Random random = new System.Random();
             for (int i = 0; i < maxAsteroids; i++)
@@ -123,7 +124,7 @@ namespace SergioGameProject
                 asteroidInitPosition.X = ancho;
                 // random velocity --//
 
-                asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1,6);
+                asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1, 6);
 
                 EntityManager.Add(asteroid);
             }
@@ -135,20 +136,21 @@ namespace SergioGameProject
 
         public class CollisionSceneBehavior : SceneBehavior
         {
-            public MyScene myScene;
+            public GameScene myScene;
             private bool collected = false;
 
 
             protected override void ResolveDependencies()
             {
-                myScene = (MyScene)this.Scene;
+                myScene = (GameScene)this.Scene;
             }
 
 
             protected override void Update(TimeSpan gameTime)
             {
                 breakAsteroid();
-                collideWithPlayer();
+                if (AssetsManager.GetPlayer().Enabled == true) { collideWithPlayer(); }
+
                 moveAsteroidAndReactivate();
                 InsertLaserUpgrade();
                 if (AssetsManager.GetLaserUpgradeThree().Enabled)
@@ -159,11 +161,12 @@ namespace SergioGameProject
 
             }
 
-            private void InsertLaserUpgrade() {
+            private void InsertLaserUpgrade()
+            {
 
                 if (myScene.puntos > 100 && AssetsManager.GetLaserUpgradeThree().Enabled == false && !collected && myScene.puntos < 120)
                 {
-                  
+
                     AssetsManager.GetLaserUpgradeThree().Enabled = true;
 
                     collected = false;
@@ -171,18 +174,20 @@ namespace SergioGameProject
                 else if (myScene.puntos > 1000 && AssetsManager.GetLaserUpgradeThree().Enabled == false && !collected && myScene.puntos < 1020)
                 {
                     AssetsManager.GetLaserUpgradeThree().Enabled = true;
-                
+
                 }
-            
+
             }
 
-            private void IsUpgradeCollidingWithPlayer() {
+            private void IsUpgradeCollidingWithPlayer()
+            {
                 Entity laserUpgrade = AssetsManager.GetLaserUpgradeThree();
                 Entity player = AssetsManager.GetPlayer();
 
                 PerPixelCollider playerCollider = player.FindComponent<PerPixelCollider>();
                 PerPixelCollider laserUpgradeCollider = laserUpgrade.FindComponent<PerPixelCollider>();
-                if (laserUpgradeCollider.Intersects(playerCollider)) {
+                if (laserUpgradeCollider.Intersects(playerCollider))
+                {
                     laserUpgrade.Enabled = false;
                     PlayerBehavior playerBehaviour = player.FindComponent<PlayerBehavior>();
                     playerBehaviour.currentLaserStat = PlayerBehavior.LaserStat.ThreeLasers;
@@ -193,11 +198,11 @@ namespace SergioGameProject
                     AssetsManager.GetGreenLaserManager().Entity.Enabled = true;
 
                     playerBehaviour.shoot = true;
-                    
+
                 }
 
 
-            
+
             }
 
 
@@ -215,7 +220,8 @@ namespace SergioGameProject
                     {
                         if (asteroidCollider.Intersects(playerColider) && myScene.canBeDestroyed)
                         {
-                            myScene.isPlayerDestroyed = true;
+                            AssetsManager.GetPlayer().Enabled = false;
+                            Explosion();
                             asteroidBehavior.breakAsteroid();
                         }
 
@@ -288,7 +294,7 @@ namespace SergioGameProject
                         int alto = (int)(WaveServices.ViewportManager.VirtualHeight - myScene.asteroid.FindComponent<Transform2D>().Rectangle.Height);
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
-                        
+
                         myScene.asteroid.Enabled = true;
                     }
                 }
@@ -298,6 +304,23 @@ namespace SergioGameProject
 
 
 
+            }
+
+            private void Explosion()
+            {
+                // Creates the explosions and adjusts to the ship position.
+
+                AssetsManager.GetExplosion().Enabled = true;
+
+                var explosionTransform = AssetsManager.GetExplosion().FindComponent<Transform2D>();
+                var shipTransform = AssetsManager.GetPlayer().FindComponent<Transform2D>();
+
+                explosionTransform.X = shipTransform.X + explosionTransform.Rectangle.Width;
+                explosionTransform.Y = shipTransform.Y + explosionTransform.Rectangle.Height;
+
+                var anim2D = AssetsManager.GetExplosion().FindComponent<Animation2D>();
+                anim2D.CurrentAnimation = "Explosion";
+                anim2D.Play(false);
             }
 
             /// <summary>
@@ -318,7 +341,7 @@ namespace SergioGameProject
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
                         asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1, 6);
-            
+
                         asteroid.Enabled = true;
 
                     }

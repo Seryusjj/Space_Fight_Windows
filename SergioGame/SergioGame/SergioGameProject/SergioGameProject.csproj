@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="assets\PathManager.cs" />
     <Compile Include="behavior\LaserUpgradeBehaviour.cs" />
     <Compile Include="assets\Score.cs" />
     <Compile Include="assets\SoundManager.cs" />
@@ -57,8 +58,9 @@
     <Compile Include="behavior\ScrollBehavior1.cs" />
     <Compile Include="behavior\PlayerBehavior.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="scenes\GameOverScene.cs" />
     <Compile Include="scenes\MenuScene.cs" />
-    <Compile Include="scenes\MyScene.cs" />
+    <Compile Include="scenes\GameScene.cs" />
     <Compile Include="assets\ProyectileManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

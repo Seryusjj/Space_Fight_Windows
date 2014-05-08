@@ -19,7 +19,7 @@ namespace SergioGameProject
 
 
 
-
+            // Use ViewportManager to ensure scaling in all devices
             WaveServices.ViewportManager.Activate(550,650, ViewportManager.StretchMode.Uniform);
 
 
@@ -33,7 +33,7 @@ namespace SergioGameProject
 
             // GameBackContext is visible always at the background. 
             // For this reason the behavior is set to Draw and Update when the scene is in background.
-            var backContext = new ScreenContext("GameBackContext", new MyScene());
+            var backContext = new ScreenContext("GameBackContext", new GameScene());
             backContext.Behavior = ScreenContextBehaviors.DrawInBackground | ScreenContextBehaviors.UpdateInBackground;
            
 

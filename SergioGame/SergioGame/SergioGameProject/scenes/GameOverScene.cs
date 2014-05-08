@@ -23,7 +23,7 @@ using WaveEngine.Framework.Sound;
 
 namespace SergioGameProject
 {
-    public class MenuScene : Scene
+    public class GameOverScene : Scene
     {
 
         public int maxAsteroids = 10;

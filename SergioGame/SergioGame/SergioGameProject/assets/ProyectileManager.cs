@@ -12,6 +12,7 @@ using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Physics2D;
 using WaveEngine.Components.Particles;
 using WaveEngine.Materials;
+using SergioGameProject.assets;
 #endregion
 
 namespace SergioGameProject
@@ -118,6 +119,7 @@ namespace SergioGameProject
 
             shotLight.Enabled = true;
             bullet.Enabled = true;
+           
         }
 
         private Entity CreateRedLaser(String tag)
@@ -128,9 +130,9 @@ namespace SergioGameProject
                     Origin = Vector2.Center,
                     DrawOrder = 0.6f,
                 })
-                 .AddComponent(new PerPixelCollider("Content/Proyectiles/laserRed.wpk", 0))
+                 .AddComponent(new PerPixelCollider(PathManager.laserRed, 0))
                 .AddComponent(new RectangleCollider())
-                .AddComponent(new Sprite("Content/Proyectiles/laserRed.wpk"))
+                .AddComponent(new Sprite(PathManager.laserRed))
                 .AddComponent(new ProyectileBehavior())
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
         }
@@ -144,9 +146,9 @@ namespace SergioGameProject
                  Origin = Vector2.Center,
                  DrawOrder = 0.6f,
              })
-             .AddComponent(new PerPixelCollider("Content/Proyectiles/laserGreen.wpk",0))
+             .AddComponent(new PerPixelCollider(PathManager.laserGreen, 0))
              .AddComponent(new RectangleCollider())
-             .AddComponent(new Sprite("Content/Proyectiles/laserGreen.wpk"))
+             .AddComponent(new Sprite(PathManager.laserGreen))
              .AddComponent(new ProyectileBehavior())
              .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
             return proyectile;
@@ -161,7 +163,7 @@ namespace SergioGameProject
                 DrawOrder = 0.6f,
             });
 
-            shotLight.AddComponent(new Sprite("Content/Proyectiles/laserGreenShot.wpk"));
+            shotLight.AddComponent(new Sprite(PathManager.laserGreenLight));
             shotLight.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
             shotLight.AddComponent(new LaserLightBehavior());
             return shotLight;
@@ -174,7 +176,7 @@ namespace SergioGameProject
             {
                 DrawOrder = 0.6f,
             });
-            shotLight.AddComponent(new Sprite("Content/Proyectiles/laserRedShot.wpk"));
+            shotLight.AddComponent(new Sprite(PathManager.laserRedLight));
             shotLight.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
             shotLight.AddComponent(new LaserLightBehavior());
             return shotLight;
