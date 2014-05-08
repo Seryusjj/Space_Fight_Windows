@@ -48,12 +48,17 @@ namespace SergioGameProject
             {
                 WaveServices.ScreenContextManager.Pop();
                 MyScene scene = WaveServices.ScreenContextManager.FindContextByName("GameBackContext").FindScene<MyScene>();
-                scene.EntityManager.Find("Player").Enabled = true;
+                AssetsManager.GetPlayer().Enabled = true;
+                AssetsManager.GetPlayer().FindChild("PlayerShield").Enabled = true;
+                //Entity player = scene.EntityManager.Find("Player");
+
 
                 WaveServices.TimerFactory.CreateTimer("Timer1", TimeSpan.FromSeconds(5),
                 () =>
                 {
+                    AssetsManager.GetPlayer().FindChild("PlayerShield").Enabled = false;
                     scene.canBeDestroyed = true;
+                    
                 });
             };
             this.EntityManager.Add(button);

@@ -138,6 +138,20 @@ namespace SergioGameProject
         }
 
 
+        private static Entity GetPlayerShield(float x,float y) {
+            Entity shield =  new Entity("PlayerShield").AddComponent(new Transform2D() { 
+                X=x,
+                Y=y
+            })
+            .AddComponent(new Sprite("Content/shield.wpk"))
+            .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+            shield.Enabled = false;
+
+            return shield;
+
+
+        }
+
         /// <summary>
         /// just one instance per gameplay
         /// </summary>
@@ -146,11 +160,12 @@ namespace SergioGameProject
         {
             if (player == null)
             {
+                
                 player = new Entity("Player");
                 player.AddComponent(new Transform2D()
                 {
-                    X = WaveServices.Platform.ScreenWidth / 2,
-                    Y = WaveServices.Platform.ScreenHeight / 2,
+                    X = WaveServices.ViewportManager.VirtualWidth / 2,
+                    Y = WaveServices.ViewportManager.VirtualHeight / 2,
                 });
                 player.AddComponent(new Sprite("Content/Player.wpk"));
                 player.AddComponent(new PerPixelCollider("Content/Player.wpk", 10));
@@ -163,6 +178,7 @@ namespace SergioGameProject
                 player.AddComponent(new AnimatedSpriteRenderer(DefaultLayers.Alpha));
                 player.AddComponent(new PlayerBehavior());
                 player.Enabled = false;
+                player.AddChild(GetPlayerShield(-25,-40));
 
             }
 

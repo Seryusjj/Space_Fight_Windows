@@ -47,6 +47,7 @@ namespace SergioGameProject
 
             EntityManager.Add(AssetsManager.GetScoreText());
             AssetsManager.SetTexOfScoreInScreen("Score: " + puntos);
+
             this.AddSceneBehavior(new CollisionSceneBehavior(), SceneBehavior.Order.PostUpdate);
         }
 
