@@ -24,7 +24,7 @@ namespace SergioGameProject
 
         public enum LaserStat { OneLaser, TwoLasers, ThreeLasers }
 
-        public LaserStat currentLaserStat;
+        public LaserStat currentLaserStat{get;set;}
 
         private TimeSpan timeRatio;
         private TimeSpan shootRatio = TimeSpan.FromSeconds(0.5f);

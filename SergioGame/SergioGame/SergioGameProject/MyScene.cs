@@ -142,7 +142,7 @@ namespace SergioGameProject
         public class CollisionSceneBehavior : SceneBehavior
         {
             public MyScene myScene;
-
+            private bool collected = false;
 
 
             protected override void ResolveDependencies()
@@ -157,17 +157,23 @@ namespace SergioGameProject
                 collideWithPlayer();
                 moveAsteroidAndReactivate();
                 InsertLaserUpgrade();
-                if (myScene.laserUpgrade.Enabled) { 
-                
+                if (myScene.laserUpgrade.Enabled) {
+                    IsUpgradeCollidingWithPlayer();
                 }
 
 
             }
 
             private void InsertLaserUpgrade() {
-                if (myScene.puntos > 100 && myScene.laserUpgrade.Enabled == false) {
-                    myScene.laserUpgrade.Enabled=true;
 
+                if (myScene.puntos > 100 && myScene.laserUpgrade.Enabled == false && !collected && myScene.puntos < 120)
+                {
+                    myScene.laserUpgrade.Enabled = true;
+                    collected = false;
+                }
+                else  if (myScene.puntos > 200 && myScene.laserUpgrade.Enabled == false && !collected && myScene.puntos < 220){
+                     myScene.laserUpgrade.Enabled = true;
+                
                 }
             
             }
@@ -180,7 +186,9 @@ namespace SergioGameProject
                 PerPixelCollider laserUpgradeCollider = laserUpgrade.FindComponent<PerPixelCollider>();
                 if (laserUpgradeCollider.Intersects(playerCollider)) {
                     laserUpgrade.Enabled = false;
-                    myScene.EntityManager.Remove(laserUpgrade);
+                    PlayerBehavior playerBehaviour = player.FindComponent<PlayerBehavior>();
+                    playerBehaviour.currentLaserStat = PlayerBehavior.LaserStat.ThreeLasers;
+                    
                 }
 
 
@@ -253,6 +261,9 @@ namespace SergioGameProject
                                 laserEntity.RemoveComponent<PerPixelCollider>();//consume el laser
                                 laserEntity.AddComponent(new PerPixelCollider(laserpath, 0));//reinicializa el laser
 
+                                myScene.puntos += 10;//has destruido el asteriode sumas puntos
+                                myScene.scoreInScreen.Text = "Score: " + myScene.puntos;
+
 
                             }
                         }
@@ -276,8 +287,7 @@ namespace SergioGameProject
                         int alto = (int)(WaveServices.ViewportManager.VirtualHeight - myScene.asteroid.FindComponent<Transform2D>().Rectangle.Height);
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
-                        myScene.puntos += 10;//has destruido el asteriode sumas puntos
-                        myScene.scoreInScreen.Text = "Score: " + myScene.puntos;
+                        
                         myScene.asteroid.Enabled = true;
                     }
                 }
