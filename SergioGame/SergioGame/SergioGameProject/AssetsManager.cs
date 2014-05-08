@@ -86,7 +86,6 @@ namespace SergioGameProject
                 textBlockForScoreInScreen = new TextBlock()
                 {
                     Margin = new Thickness(20, 40, 0, 0),
-                    BorderColor = Color.Green,
                     Foreground = Color.Green,
                 };
                 scoreInScreen = textBlockForScoreInScreen.Entity;
@@ -260,13 +259,17 @@ namespace SergioGameProject
 
         public static ProyectileManager GetCurrentLaserManager()
         {
-
+            if (textBlockForScoreInScreen == null) {
+                GetScoreText();
+            }
 
             if (GetRedLaserManager().Entity.Enabled == true)
             {
+                textBlockForScoreInScreen.Foreground = Color.Red;
                 return GetRedLaserManager();
             }
             else {
+                textBlockForScoreInScreen.Foreground = Color.Green;
                 return GetGreenLaserManager();
             }
         
