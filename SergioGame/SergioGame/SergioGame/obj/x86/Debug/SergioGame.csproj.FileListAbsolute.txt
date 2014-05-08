@@ -108,3 +108,6 @@ C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\b
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\rock_breaking.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Music\laser7.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\laserUpgrade.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\UI\buttonStage1.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\UI\buttonStage2.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\UI\mainMenuBG.wpk

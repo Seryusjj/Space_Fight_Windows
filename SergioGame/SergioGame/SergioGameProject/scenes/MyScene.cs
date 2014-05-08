@@ -30,7 +30,7 @@ namespace SergioGameProject
         public int puntos = 0;
         public Boolean isPlayerDestroyed = false;
         public Entity asteroid = null;
-
+        public Boolean canBeDestroyed = false;
 
         protected override void CreateScene()
         {
@@ -53,10 +53,6 @@ namespace SergioGameProject
 
         private void Sounds()
         {
-            //-- game lopp --//
-            MusicPlayer player = WaveServices.MusicPlayer;
-            player.IsRepeat = true;
-            player.Play(SoundManager.getGameLoopSound());
 
             // sound bank --//
             SoundBank bank = new SoundBank(Assets);
@@ -101,6 +97,9 @@ namespace SergioGameProject
             }
 
         }
+
+
+       
 
 
 
@@ -201,10 +200,6 @@ namespace SergioGameProject
             }
 
 
-
-
-
-
             private void collideWithPlayer()
             {
                 for (int i = 0; i < myScene.maxAsteroids; i++)
@@ -217,7 +212,7 @@ namespace SergioGameProject
                     PerPixelCollider playerColider = AssetsManager.GetPlayer().FindComponent<PerPixelCollider>();
                     if (asteroid.Enabled == true && asteroidState.Equals("Rotate"))
                     {
-                        if (asteroidCollider.Intersects(playerColider))
+                        if (asteroidCollider.Intersects(playerColider) && myScene.canBeDestroyed)
                         {
                             myScene.isPlayerDestroyed = true;
                             asteroidBehavior.breakAsteroid();

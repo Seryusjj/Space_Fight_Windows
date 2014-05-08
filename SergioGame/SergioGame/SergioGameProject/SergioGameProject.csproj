@@ -47,9 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="behavior\LaserUpgradeBehaviour.cs" />
-    <Compile Include="Score.cs" />
-    <Compile Include="SoundManager.cs" />
-    <Compile Include="AssetsManager.cs" />
+    <Compile Include="assets\Score.cs" />
+    <Compile Include="assets\SoundManager.cs" />
+    <Compile Include="assets\AssetsManager.cs" />
     <Compile Include="behavior\AsteroidBehavior.cs" />
     <Compile Include="behavior\LaserLightBehavior.cs" />
     <Compile Include="behavior\ProyectileBehavior.cs" />
@@ -57,8 +57,9 @@
     <Compile Include="behavior\ScrollBehavior1.cs" />
     <Compile Include="behavior\PlayerBehavior.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="MyScene.cs" />
-    <Compile Include="ProyectileManager.cs" />
+    <Compile Include="scenes\MenuScene.cs" />
+    <Compile Include="scenes\MyScene.cs" />
+    <Compile Include="assets\ProyectileManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

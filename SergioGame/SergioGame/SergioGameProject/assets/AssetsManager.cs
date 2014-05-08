@@ -86,7 +86,7 @@ namespace SergioGameProject
                 textBlockForScoreInScreen = new TextBlock()
                 {
                     Margin = new Thickness(20, 40, 0, 0),
-                    Foreground = Color.Green,
+                    Foreground = Color.Red,
                 };
                 scoreInScreen = textBlockForScoreInScreen.Entity;
             }
@@ -162,6 +162,7 @@ namespace SergioGameProject
                 player.AddComponent(animations);
                 player.AddComponent(new AnimatedSpriteRenderer(DefaultLayers.Alpha));
                 player.AddComponent(new PlayerBehavior());
+                player.Enabled = false;
 
             }
 
@@ -257,6 +258,51 @@ namespace SergioGameProject
         }
 
 
+        /// <summary>
+        /// Creates a new play button.
+        /// </summary>
+        /// <param name="x">The x of the new button.</param>
+        /// <param name="y">The y of the new button.</param>
+        /// <returns></returns>
+        public static Button CreatePlayButton(float x, float y)
+        {
+            var button = new Button()
+            {
+                Margin = new Thickness(0, y, 0, 0),
+                HorizontalAlignment = WaveEngine.Framework.UI.HorizontalAlignment.Center,
+                Text = string.Empty,
+                IsBorder = false,
+                BackgroundImage = "Content/UI/buttonStage1.wpk",
+                PressedBackgroundImage = "Content/UI/buttonStage2.wpk",
+
+            };
+
+            return button;
+        }
+
+         /// <summary>
+        /// Creates a new mainMenuBackground
+        /// </summary>
+        /// <returns></returns>
+        public static Entity CreateMainMenuBackground(float y)
+        {
+            var background = new Entity()
+                .AddComponent(new Transform2D()
+                {
+                    X = WaveServices.ViewportManager.LeftEdge,
+                    Y = y,
+                    XScale = WaveServices.ViewportManager.ScreenWidth / WaveServices.ViewportManager.RatioX,
+                    YScale = 0.5f,
+                    DrawOrder = 1f
+                })
+                .AddComponent(new Sprite("Content/UI/mainMenuBG.wpk"))
+                .AddComponent(new SpriteRenderer(DefaultLayers.GUI));
+
+            return background;
+        }
+    
+
+
         public static ProyectileManager GetCurrentLaserManager()
         {
             if (textBlockForScoreInScreen == null) {
@@ -269,7 +315,7 @@ namespace SergioGameProject
                 return GetRedLaserManager();
             }
             else {
-                textBlockForScoreInScreen.Foreground = Color.Green;
+                textBlockForScoreInScreen.Foreground = Color.GreenYellow;
                 return GetGreenLaserManager();
             }
         
