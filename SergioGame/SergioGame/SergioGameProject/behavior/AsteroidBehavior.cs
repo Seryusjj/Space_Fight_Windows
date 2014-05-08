@@ -25,6 +25,8 @@ namespace SergioGameProject
 
         private const int BORDER_OFFSET = 25;
 
+        private SoundInstance breakingSound;
+
         [RequiredComponent]
         private Animation2D anim2D;
         [RequiredComponent]
@@ -39,6 +41,8 @@ namespace SergioGameProject
             anim2D = null;
             trans2D = null;
             breaked = false;
+            
+
         }
 
         public void breakAsteroidtest()
@@ -63,8 +67,32 @@ namespace SergioGameProject
 
         public void breakAsteroid()
         {
-
-            WaveServices.SoundPlayer.Play(SoundManager.getRockBrakingSound());
+        //    if (breakingSound != null)
+         //   {
+                
+                   // breakingSound.Parent.DestroyInstance(breakingSound);
+                  //    breakingSound.Stop();
+                  //     breakingSound.Dispose();                        
+                
+         //   }
+         //   else
+         //   {
+                breakingSound = WaveServices.SoundPlayer.Play(SoundManager.getRockBrakingSound());
+            //}
+           
+            /*else
+            {
+                
+                {
+                    
+                }
+                else
+                {
+                    breakingSound.Play();
+                }
+            }
+            String a =breakingSound.State.ToString();*/
+            
             breaked = true;
 
         }

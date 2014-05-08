@@ -30,6 +30,8 @@ namespace SergioGameProject
         public int puntos = 0;
         public Boolean isPlayerDestroy = false;
 
+        public TextBlock scoreInScreen = AssetsManager.GetScoreText();
+
 
         public Entity player = AssetsManager.GetPlayer();
 
@@ -48,26 +50,63 @@ namespace SergioGameProject
             EntityManager.Add(proyectileManager);
             initAsteroids(EntityManager);
 
-            sounds();
+            Sounds();
 
+            EntityManager.Add(scoreInScreen.Entity);
             this.AddSceneBehavior(new CollisionSceneBehavior(), SceneBehavior.Order.PostUpdate);
         }
 
 
-        private void sounds() {
+        private void Sounds()
+        {
             //-- game lopp --//
-            WaveServices.MusicPlayer.Play(SoundManager.getGameLoopSound());
+            MusicPlayer player = WaveServices.MusicPlayer;
+            player.IsRepeat = true;
+            player.Play(SoundManager.getGameLoopSound());
 
             // sound bank --//
             SoundBank bank = new SoundBank(Assets);
             WaveServices.SoundPlayer.RegisterSoundBank(bank);
 
             //-- registering the different sounds --//
-            //bank.Add(SoundManager.getLaserShotSound());
             bank.Add(SoundManager.getRockBrakingSound());
-            
+            //bank.Add(SoundManager.getLaserShotSound());
+
         }
-   
+
+
+        private Score GetScore()
+        {
+            Score score = null;
+
+            if (WaveServices.Storage.Exists<Score>())
+            {
+                score = WaveServices.Storage.Read<Score>();
+            } return score;
+
+        }
+
+        private void PersistScore()
+        {
+            Score score = GetScore();
+
+            if (score == null)
+            {
+                score = new Score();
+                score.score = this.puntos;
+                WaveServices.Storage.Write<Score>(score);
+
+            }
+
+            else if (score.score < this.puntos)
+            {
+
+                score.score = this.puntos;
+                WaveServices.Storage.Write<Score>(score);
+            }
+
+        }
+
 
 
         private void initAsteroids(WaveEngine.Framework.Managers.EntityManager EntityManager)
@@ -75,19 +114,21 @@ namespace SergioGameProject
             System.Random random = new System.Random();
             for (int i = 0; i < maxasteroids; i++)
             {
-                //-- Scale values --//
+                //-- Scale value and andasteroid creation --//
                 //random.NextDouble() * (maximum - minimum) + minimum;
-                float scaleX = (float)random.NextDouble() * (1 - 0.3f) + 0.3f;
-                //float scaleY = (float)random.NextDouble() * (1 - 0.3f) + 0.3f;
-                Entity asteroid = AssetsManager.GetAsteroid(0, 0, scaleX, scaleX);
-                //-- Position values --//
+                float scale = (float)random.NextDouble() * (1 - 0.3f) + 0.3f;
+                Entity asteroid = AssetsManager.GetAsteroid(0, 0, scale, scale);
 
+
+                //-- Random Position values and positioning --//
                 int ancho = WaveServices.Random.Next((int)asteroid.FindComponent<Transform2D>().Rectangle.Width, (int)(WaveServices.ViewportManager.VirtualWidth - asteroid.FindComponent<Transform2D>().Rectangle.Width));
                 int alto = (int)(WaveServices.ViewportManager.VirtualHeight - asteroid.FindComponent<Transform2D>().Rectangle.Height);
 
                 Transform2D asteroidInitPosition = asteroid.FindComponent<Transform2D>();
                 asteroidInitPosition.X = ancho;
-                // asteroidInitPosition.Y = alto;
+                // random velocity --//
+
+                asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1,10);
 
                 EntityManager.Add(asteroid);
             }
@@ -95,20 +136,10 @@ namespace SergioGameProject
         }
 
 
-
-
-
-
-
-
-
-
-
-
         public class CollisionSceneBehavior : SceneBehavior
         {
             public MyScene myScene;
-
+            int difficulty = 1;
 
             protected override void ResolveDependencies()
             {
@@ -121,11 +152,12 @@ namespace SergioGameProject
                 breakAsteroid();
                 collideWithPlayer();
                 moveAsteroidAndReactivate();
-                
+
 
             }
 
-            private void collideWithPlayer() {
+            private void collideWithPlayer()
+            {
                 for (int i = 0; i < myScene.maxasteroids; i++)
                 {
                     //asteroide a evaluar
@@ -136,14 +168,15 @@ namespace SergioGameProject
                     PerPixelCollider playerColider = myScene.EntityManager.Find("Player").FindComponent<PerPixelCollider>();
                     if (asteroid.Enabled == true && asteroidState.Equals("Rotate"))
                     {
-                        if(asteroidCollider.Intersects(playerColider)){
+                        if (asteroidCollider.Intersects(playerColider))
+                        {
                             myScene.isPlayerDestroy = true;
                             asteroidBehavior.breakAsteroid();
                         }
 
                     }
                 }
-                
+
             }
 
 
@@ -160,7 +193,7 @@ namespace SergioGameProject
                         //asteroide a evaluar
                         Entity asteroid = myScene.EntityManager.Find("Asteroid" + i);
 
-                        
+
                         if (count >= myScene.proyectileManager.numBullets)
                         {
                             break; //no hay mas proyectiles a evaluar
@@ -208,18 +241,24 @@ namespace SergioGameProject
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
                         myScene.puntos += 10;//has destruido el asteriode sumas puntos
+                        myScene.scoreInScreen.Text = "Score: " + myScene.puntos;
                         myScene.asteroid.Enabled = true;
                     }
                 }
 
                 reactivateAsteroids();
 
-                
+
 
 
             }
 
-            private void reactivateAsteroids() {
+            /// <summary>
+            /// Reactiva los asteroides que se escapan por el fondo de la pantalla
+            /// dandoles una nueva posicion random X y y = 0
+            /// </summary>
+            private void reactivateAsteroids()
+            {
                 for (int i = 0; i < myScene.maxasteroids; i++)
                 {
                     //asteroide a evaluar
@@ -231,6 +270,8 @@ namespace SergioGameProject
                         int alto = (int)(WaveServices.ViewportManager.VirtualHeight - asteroid.FindComponent<Transform2D>().Rectangle.Height);
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
+                        asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1+difficulty, 10+difficulty);
+                        difficulty++;
                         asteroid.Enabled = true;
 
                     }
@@ -239,7 +280,7 @@ namespace SergioGameProject
 
         }
 
-        
+
     }
 }
 

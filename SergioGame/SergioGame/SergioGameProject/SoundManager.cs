@@ -42,7 +42,7 @@ namespace SergioGameProject
         {
             if (laserShot == null)
             {
-                laserShot = new SoundInfo("Content/Music/flaunch.wpk");
+                laserShot = new SoundInfo("Content/Music/laser7.wpk");
             }
             return laserShot;
         }

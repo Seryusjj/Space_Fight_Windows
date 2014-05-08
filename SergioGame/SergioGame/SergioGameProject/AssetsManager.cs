@@ -16,6 +16,7 @@ using WaveEngine.Materials;
 using WaveEngine.Components.Animation;
 using WaveEngine.Components.UI;
 using WaveEngine.Framework.Physics2D;
+using WaveEngine.Framework.UI;
 
 namespace SergioGameProject
 {
@@ -43,6 +44,20 @@ namespace SergioGameProject
 
 
             return mine;
+        }
+
+        public static TextBlock GetScoreText() {
+            TextBlock textblock = new TextBlock()
+            {
+                Margin = new Thickness(20, 40, 0, 0),
+                Text = "Score: 0",
+                BorderColor = Color.Green,
+                Foreground = Color.Green,
+            };
+
+            return textblock;
+        
+        
         }
 
 

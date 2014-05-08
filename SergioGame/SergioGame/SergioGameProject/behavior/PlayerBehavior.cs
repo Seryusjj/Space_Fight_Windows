@@ -100,17 +100,15 @@ namespace SergioGameProject
                 var a = trans2D.X;
                 var ProyectileManager = EntityManager.Find<ProyectileManager>("ProyectileManager");
 
-                WaveServices.SoundPlayer.Play(SoundManager.getLaserShotSound());
-
                 //WaveServices.MusicPlayer.Play(SoundManager.getLaserShotMusic());
-                ProyectileManager.ShootBullet(trans2D.X+trans2D.Rectangle.Width / 2, trans2D.Y-20, 0f, -5f); //dispara al medio
-                
+                ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width / 2, trans2D.Y - 20, 0f, -5f); //dispara al medio
+
                 //ProyectileManager.ShootBullet(trans2D.X, trans2D.Y+5, 0f, -5f);
- 
+
                 //ProyectileManager.ShootBullet(trans2D.X+trans2D.Rectangle.Width, trans2D.Y+5, 0f, -5f);
 
             }
-            
+
         }
 
         private void ChageState()
@@ -238,8 +236,10 @@ namespace SergioGameProject
             ChageState();
 
             Move(gameTime.Milliseconds / 10);
-            if(shoot){
-            Shoot(gameTime);}
+            if (shoot)
+            {
+                Shoot(gameTime);
+            }
 
             CheckBorders();
         }
