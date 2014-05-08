@@ -26,19 +26,10 @@ namespace SergioGameProject
     public class MyScene : Scene
     {
 
-        public int maxasteroids = 10;
+        public int maxAsteroids = 10;
         public int puntos = 0;
-
-        public Boolean isPlayerDestroy = false;
-
-
-      
-
+        public Boolean isPlayerDestroyed = false;
         public Entity asteroid = null;
-
-
-
-
 
 
         protected override void CreateScene()
@@ -116,7 +107,7 @@ namespace SergioGameProject
         private void initAsteroids(WaveEngine.Framework.Managers.EntityManager EntityManager)
         {
             System.Random random = new System.Random();
-            for (int i = 0; i < maxasteroids; i++)
+            for (int i = 0; i < maxAsteroids; i++)
             {
                 //-- Scale value and andasteroid creation --//
                 //random.NextDouble() * (maximum - minimum) + minimum;
@@ -216,7 +207,7 @@ namespace SergioGameProject
 
             private void collideWithPlayer()
             {
-                for (int i = 0; i < myScene.maxasteroids; i++)
+                for (int i = 0; i < myScene.maxAsteroids; i++)
                 {
                     //asteroide a evaluar
                     Entity asteroid = myScene.EntityManager.Find("Asteroid" + i);
@@ -228,7 +219,7 @@ namespace SergioGameProject
                     {
                         if (asteroidCollider.Intersects(playerColider))
                         {
-                            myScene.isPlayerDestroy = true;
+                            myScene.isPlayerDestroyed = true;
                             asteroidBehavior.breakAsteroid();
                         }
 
@@ -246,7 +237,7 @@ namespace SergioGameProject
                 foreach (Entity laserEntity in AssetsManager.GetCurrentLaserManager().Entity.ChildEntities)
                 {
                     count++;
-                    for (int i = 0; i < myScene.maxasteroids; i++)
+                    for (int i = 0; i < myScene.maxAsteroids; i++)
                     {
                         //asteroide a evaluar
                         Entity asteroid = myScene.EntityManager.Find("Asteroid" + i);
@@ -319,7 +310,7 @@ namespace SergioGameProject
             /// </summary>
             private void reactivateAsteroids()
             {
-                for (int i = 0; i < myScene.maxasteroids; i++)
+                for (int i = 0; i < myScene.maxAsteroids; i++)
                 {
                     //asteroide a evaluar
                     Entity asteroid = myScene.EntityManager.Find("Asteroid" + i);
