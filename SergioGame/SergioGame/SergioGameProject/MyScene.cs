@@ -31,7 +31,7 @@ namespace SergioGameProject
         public Boolean isPlayerDestroy = false;
 
         public TextBlock scoreInScreen = AssetsManager.GetScoreText();
-
+        public Entity laserUpgrade = AssetsManager.LaserUpgradeObject();
 
         public Entity player = AssetsManager.GetPlayer();
 
@@ -49,6 +49,7 @@ namespace SergioGameProject
 
             EntityManager.Add(proyectileManager);
             initAsteroids(EntityManager);
+            EntityManager.Add(laserUpgrade);
 
             Sounds();
 
@@ -128,18 +129,21 @@ namespace SergioGameProject
                 asteroidInitPosition.X = ancho;
                 // random velocity --//
 
-                asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1,10);
+                asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1,6);
 
                 EntityManager.Add(asteroid);
             }
 
         }
 
+        //----------------------------------- BEHVIOR ----------------------------------------//
+
 
         public class CollisionSceneBehavior : SceneBehavior
         {
             public MyScene myScene;
-            int difficulty = 1;
+
+
 
             protected override void ResolveDependencies()
             {
@@ -152,9 +156,41 @@ namespace SergioGameProject
                 breakAsteroid();
                 collideWithPlayer();
                 moveAsteroidAndReactivate();
+                InsertLaserUpgrade();
+                if (myScene.laserUpgrade.Enabled) { 
+                
+                }
 
 
             }
+
+            private void InsertLaserUpgrade() {
+                if (myScene.puntos > 100 && myScene.laserUpgrade.Enabled == false) {
+                    myScene.laserUpgrade.Enabled=true;
+
+                }
+            
+            }
+
+            private void IsUpgradeCollidingWithPlayer() {
+                Entity laserUpgrade = myScene.laserUpgrade;
+                Entity player = myScene.player;
+
+                PerPixelCollider playerCollider = player.FindComponent<PerPixelCollider>();
+                PerPixelCollider laserUpgradeCollider = laserUpgrade.FindComponent<PerPixelCollider>();
+                if (laserUpgradeCollider.Intersects(playerCollider)) {
+                    laserUpgrade.Enabled = false;
+                    myScene.EntityManager.Remove(laserUpgrade);
+                }
+
+
+            
+            }
+
+
+
+
+
 
             private void collideWithPlayer()
             {
@@ -270,8 +306,8 @@ namespace SergioGameProject
                         int alto = (int)(WaveServices.ViewportManager.VirtualHeight - asteroid.FindComponent<Transform2D>().Rectangle.Height);
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
-                        asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1+difficulty, 10+difficulty);
-                        difficulty++;
+                        asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1, 6);
+            
                         asteroid.Enabled = true;
 
                     }

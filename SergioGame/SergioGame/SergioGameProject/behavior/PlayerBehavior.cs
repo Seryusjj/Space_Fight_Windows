@@ -14,12 +14,17 @@ namespace SergioGameProject
 
     class PlayerBehavior : Behavior
     {
+        
 
         private const int SPEED = 5;
         private const int RIGHT = 1;
         private const int LEFT = -1;
         private const int UP = -1;
         private const int DOWN = 1;
+
+        public enum LaserStat { OneLaser, TwoLasers, ThreeLasers }
+
+        public LaserStat currentLaserStat;
 
         private TimeSpan timeRatio;
         private TimeSpan shootRatio = TimeSpan.FromSeconds(0.5f);
@@ -39,6 +44,7 @@ namespace SergioGameProject
         public PlayerBehavior()
             : base("playerBehavior")
         {
+            currentLaserStat = LaserStat.OneLaser;
             this.shoot = true;
             this.anim2D = null;
             this.trans2D = null;
@@ -99,13 +105,30 @@ namespace SergioGameProject
                 timeRatio = shootRatio;
                 var a = trans2D.X;
                 var ProyectileManager = EntityManager.Find<ProyectileManager>("ProyectileManager");
+                switch (currentLaserStat) { 
+                    case LaserStat.OneLaser:
+                        ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width / 2, trans2D.Y - 20, 0f, -5f);
+                        break;
+                    case LaserStat.TwoLasers:
+                        ProyectileManager.ShootBullet(trans2D.X, trans2D.Y+5, 0f, -5f);
+
+                        ProyectileManager.ShootBullet(trans2D.X+trans2D.Rectangle.Width, trans2D.Y+5, 0f, -5f);
+                        break;
+                    case LaserStat.ThreeLasers:
+                        ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width / 2, trans2D.Y - 20, 0f, -5f);
+                        ProyectileManager.ShootBullet(trans2D.X, trans2D.Y+5, 0f, -5f);
+
+                        ProyectileManager.ShootBullet(trans2D.X+trans2D.Rectangle.Width, trans2D.Y+5, 0f, -5f);
+                        break;
+
+                
+                
+                }
 
                 //WaveServices.MusicPlayer.Play(SoundManager.getLaserShotMusic());
-                ProyectileManager.ShootBullet(trans2D.X + trans2D.Rectangle.Width / 2, trans2D.Y - 20, 0f, -5f); //dispara al medio
+                 //dispara al medio
 
-                //ProyectileManager.ShootBullet(trans2D.X, trans2D.Y+5, 0f, -5f);
-
-                //ProyectileManager.ShootBullet(trans2D.X+trans2D.Rectangle.Width, trans2D.Y+5, 0f, -5f);
+             
 
             }
 

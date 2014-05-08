@@ -46,6 +46,21 @@ namespace SergioGameProject
             return mine;
         }
 
+        public static Entity LaserUpgradeObject() {
+            Entity laserUpgrade = new Entity("laserUpgrade").AddComponent(new Transform2D()
+            {
+            
+                X=100,
+                Y=100
+            });
+            laserUpgrade.AddComponent(new PerPixelCollider("Content/laserUpgrade.wpk",0));
+            laserUpgrade.AddComponent(new LaserUpgradeBehaviour());
+            laserUpgrade.AddComponent(new Sprite("Content/laserUpgrade.wpk"));
+            laserUpgrade.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+            laserUpgrade.Enabled = false;
+            return laserUpgrade;
+        }
+
         public static TextBlock GetScoreText() {
             TextBlock textblock = new TextBlock()
             {

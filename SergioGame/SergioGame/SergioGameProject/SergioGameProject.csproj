@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="behavior\LaserUpgradeBehaviour.cs" />
     <Compile Include="Score.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="AssetsManager.cs" />

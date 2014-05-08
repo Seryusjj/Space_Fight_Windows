@@ -67,6 +67,9 @@
     <None Include="Content\Asteroid.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\laserUpgrade.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Music\laser7.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

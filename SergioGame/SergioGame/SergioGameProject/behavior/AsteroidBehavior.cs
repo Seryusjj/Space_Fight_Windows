@@ -59,7 +59,7 @@ namespace SergioGameProject
         private void moveAsteroid(int gameTimeMilliseconds)
         {
             trans2D.X += Xdirection * speed * gameTimeMilliseconds;
-            trans2D.Y += 1;
+            trans2D.Y += 1 * speed * gameTimeMilliseconds;
             if (trans2D.Y > WaveServices.ViewportManager.VirtualHeight) {
                 Owner.Enabled = false;
             }
