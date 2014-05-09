@@ -43,7 +43,7 @@ namespace SergioGameProject
         /// </summary>
         private void CreateUI()
         {
-            var button = AssetsManager.CreatePlayButton(WaveServices.ViewportManager.ScreenWidth / 2, WaveServices.ViewportManager.ScreenHeight / 2);
+            var button = AssetsManager.CreatePlayButton(WaveServices.ViewportManager.VirtualWidth / 2, WaveServices.ViewportManager.VirtualHeight / 2);
             button.Click += (o, e) =>
             {
                 WaveServices.ScreenContextManager.Pop();
@@ -61,7 +61,7 @@ namespace SergioGameProject
                 });
             };
             this.EntityManager.Add(button);
-            var a = WaveServices.ViewportManager.ScreenHeight / 2 - button.Height;
+            var a = WaveServices.ViewportManager.VirtualHeight / 2 - button.Height;
             this.EntityManager.Add(AssetsManager.CreateMainMenuBackground(a));
         }
 

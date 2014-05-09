@@ -37,4 +37,3 @@ C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGamePr
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGameProject\bin\x86\Debug\FarseerPhysics.xml
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGameProject\obj\x86\Debug\SergioGameProject.dll
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGameProject\obj\x86\Debug\SergioGameProject.pdb
-C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGameProject\obj\x86\Debug\SergioGameProject.csprojResolveAssemblyReference.cache

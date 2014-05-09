@@ -105,7 +105,6 @@ namespace SergioGameProject
                 else
                 {
                     timeRatio = shootRatio;
-                    var a = trans2D.X;
                     var ProyectileManager = AssetsManager.GetCurrentLaserManager();
                     switch (currentLaserStat)
                     {

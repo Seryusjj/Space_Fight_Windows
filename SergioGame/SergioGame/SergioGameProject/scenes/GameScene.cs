@@ -52,6 +52,12 @@ namespace SergioGameProject
             this.AddSceneBehavior(new CollisionSceneBehavior(), SceneBehavior.Order.PostUpdate);
         }
 
+        protected override void Start()
+        {
+            RandomizeAsteroidsPositions();
+        
+        }
+
 
         public void Restart()
         {
@@ -121,24 +127,34 @@ namespace SergioGameProject
             for (int i = 0; i < maxAsteroids; i++)
             {
                 //-- Scale value and andasteroid creation --//
-                //random.NextDouble() * (maximum - minimum) + minimum;
-                float scale = (float)random.NextDouble() * (1 - 0.3f) + 0.3f;
-                Entity asteroid = AssetsManager.CreateAsteroid(0, 0, scale, scale);
+                float maximunScale = 1;
+                float minimunScale = 0.3f;
+                float scale = (float)random.NextDouble() * (maximunScale - minimunScale) + minimunScale;
+                Entity asteroid = AssetsManager.CreateAsteroid(100, 0, scale, scale);
 
-
-                //-- Random Position values and positioning --//
-                int ancho = WaveServices.Random.Next((int)asteroid.FindComponent<Transform2D>().Rectangle.Width, (int)(WaveServices.ViewportManager.VirtualWidth - asteroid.FindComponent<Transform2D>().Rectangle.Width));
-                int alto = (int)(WaveServices.ViewportManager.VirtualHeight - asteroid.FindComponent<Transform2D>().Rectangle.Height);
-
-                Transform2D asteroidInitPosition = asteroid.FindComponent<Transform2D>();
-                asteroidInitPosition.X = ancho;
                 // random velocity --//
-
                 asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1, 6);
 
                 EntityManager.Add(asteroid);
             }
 
+        }
+
+        private void RandomizeAsteroidsPositions() {
+            System.Random random = new System.Random();
+            for (int i = 0; i < maxAsteroids; i++)
+            {
+                Entity asteroid = EntityManager.Find("Asteroid" + i);
+                //-- Random Position values and positioning --//
+                Transform2D asteroidTransform = asteroid.FindComponent<Transform2D>();
+                float ancho = (WaveServices.ViewportManager.VirtualWidth - asteroidTransform.Rectangle.Width);
+                float position = (float)random.NextDouble() * (ancho - 0) + 0;
+
+                asteroidTransform.X = position;
+            }
+        
+        
+        
         }
 
         //----------------------------------- BEHAVIOR ----------------------------------------//
@@ -354,7 +370,6 @@ namespace SergioGameProject
                     {
                         var transform = asteroid.FindComponent<Transform2D>();
                         int ancho = (int)(WaveServices.ViewportManager.VirtualWidth - asteroid.FindComponent<Transform2D>().Rectangle.Width);
-                        int alto = (int)(WaveServices.ViewportManager.VirtualHeight - asteroid.FindComponent<Transform2D>().Rectangle.Height);
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
                         asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1, 6);

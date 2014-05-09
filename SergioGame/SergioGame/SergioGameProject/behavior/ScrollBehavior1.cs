@@ -12,9 +12,9 @@ namespace SergioGameProject
 
     public class ScrollBehavior1 : Behavior
     {
-        private static int instances = 0;
+
         private static float scrollSpeed=300;
-        private const float MAXSPEED = 0.5f;
+  
 
         private float sceneHeight;
 
@@ -34,7 +34,7 @@ namespace SergioGameProject
 
 
         public ScrollBehavior1(float height)
-            : base("ObstacleBehavior_" + instances++)
+            : base("ScrollBehavior1")
         {
             this.sceneHeight = height;
         

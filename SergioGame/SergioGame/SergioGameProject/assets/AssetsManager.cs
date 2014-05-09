@@ -45,8 +45,8 @@ namespace SergioGameProject
 
             Entity mine = new Entity("mine" + mineCounter).AddComponent(new Transform2D()
             {
-                X = WaveServices.Platform.ScreenWidth / 2,
-                Y = WaveServices.Platform.ScreenHeight / 2,
+                X = WaveServices.ViewportManager.ScreenWidth / 2,
+                Y = WaveServices.ViewportManager.ScreenHeight / 2,
             });
 
 
@@ -64,7 +64,10 @@ namespace SergioGameProject
             if (explosion == null)
             {
                 explosion = new Entity("explosion")
-                    .AddComponent(new Transform2D() { XScale = 3, YScale = 2.5f, Origin = new Vector2(0.5f) })
+                    .AddComponent(new Transform2D() { 
+                        XScale = 3,
+                        YScale = 2.5f,
+                    })
                     .AddComponent(new Sprite(PathManager.explosionSprites))
                     .AddComponent(Animation2D.Create<TexturePackerGenericXml>(PathManager.explosionXml)
                         .Add("Explosion", new SpriteSheetAnimationSequence() { First = 1, Length = 16, FramesPerSecond = 16 }))
@@ -104,7 +107,7 @@ namespace SergioGameProject
             {
                 textBlockForScoreInScreen = new TextBlock()
                 {
-                    Margin = new Thickness(20, 40, 0, 0),
+                    Margin = new Thickness(100, 100, 0, 0),
                     Foreground = Color.Red,
                 };
                 scoreInScreen = textBlockForScoreInScreen.Entity;
@@ -227,47 +230,47 @@ namespace SergioGameProject
         /// <returns></returns>
         private static Entity GetBackgroudPart1()
         {
-
+            
 
             Entity background = new Entity("backGround1").AddComponent(new Transform2D()
             {
-                X = WaveServices.ViewportManager.LeftEdge,
-                Y = WaveServices.ViewportManager.TopEdge,
+                X = 0,
+                Y = 0,
                 DrawOrder = 1,
-                XScale = WaveServices.ViewportManager.VirtualWidth / (WaveServices.ViewportManager.RatioX * (float)600),
-                YScale = WaveServices.ViewportManager.VirtualHeight / (WaveServices.ViewportManager.RatioY * (float)800)
+                XScale = WaveServices.ViewportManager.VirtualWidth / 600f,
+                YScale = WaveServices.ViewportManager.VirtualHeight / 800f
             });
 
 
 
             background.AddComponent(new Sprite(PathManager.level1Bg));
             background.AddComponent(new SpriteRenderer(DefaultLayers.Opaque));
-            background.AddComponent(new ScrollBehavior1(WaveServices.ViewportManager.ScreenHeight));
+            background.AddComponent(new ScrollBehavior1(WaveServices.ViewportManager.VirtualHeight));
 
 
             return background;
         }
 
-
+        /// <summary>
+        /// 550 y 650 
+        /// </summary>
+        /// <returns></returns>
         private static Entity GetBackgroudPart2()
         {
-            Vector2 corner = Vector2.Zero;
-            WaveServices.ViewportManager.RecoverPosition(ref corner);
-
             Entity background = new Entity("backGround2").AddComponent(new Transform2D()
             {
-                X = WaveServices.ViewportManager.LeftEdge,
+                X = 0,
                 Y = -WaveServices.ViewportManager.VirtualHeight,
                 DrawOrder = 1,
-                XScale = WaveServices.ViewportManager.VirtualWidth / (WaveServices.ViewportManager.RatioX * (float)600),
-                YScale = WaveServices.ViewportManager.VirtualHeight / (WaveServices.ViewportManager.RatioY * (float)800)
+                XScale = WaveServices.ViewportManager.VirtualWidth / 600f,
+                YScale = WaveServices.ViewportManager.VirtualHeight / 800f
             });
 
 
 
             background.AddComponent(new Sprite(PathManager.level1Bg));
             background.AddComponent(new SpriteRenderer(DefaultLayers.Opaque));
-            background.AddComponent(new ScrollBehavior2(WaveServices.ViewportManager.ScreenHeight));
+            background.AddComponent(new ScrollBehavior2(WaveServices.ViewportManager.VirtualHeight));
 
 
             return background;
@@ -325,13 +328,13 @@ namespace SergioGameProject
         /// <returns></returns>
         public static Entity CreateMainMenuBackground(float y)
         {
-
+            var a = WaveServices.ViewportManager.RatioX;
             var background = new Entity()
                 .AddComponent(new Transform2D()
                 {
-                    X = WaveServices.ViewportManager.LeftEdge,
+                    X = 0,
                     Y = y,
-                    XScale = WaveServices.ViewportManager.ScreenWidth / WaveServices.ViewportManager.RatioX,
+                    XScale = WaveServices.ViewportManager.VirtualWidth ,
                     YScale = 0.5f,
                     DrawOrder = 1f
                 })
