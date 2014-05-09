@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="25443seryuxdev.Spacefight" Publisher="CN=BDE251F3-27BC-483B-BB44-3FC02A03722D" Version="1.0.0.1" />
+  <Properties>
+    <DisplayName>Space fight</DisplayName>
+    <PublisherDisplayName>seryuxdev</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+    <Description>SergioGame Launcher</Description>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2</OSMinVersion>
+    <OSMaxVersionTested>6.2</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Launcher.App">
+      <VisualElements DisplayName="Space fight" Logo="Images\Logo.png" SmallLogo="Images\SmallLogo.png" Description="Space fight game" ForegroundText="light" BackgroundColor="#222222">
+        <DefaultTile ShowName="logoOnly" WideLogo="Images\WideLogo.png" />
+        <SplashScreen Image="Images\SplashScreen.png" />
+      </VisualElements>
+    </Application>
+  </Applications>
+</Package>
