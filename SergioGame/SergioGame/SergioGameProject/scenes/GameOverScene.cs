@@ -50,8 +50,7 @@ namespace SergioGameProject
                 GameScene scene = WaveServices.ScreenContextManager.FindContextByName("GameBackContext").FindScene<GameScene>();
                 AssetsManager.GetPlayer().Enabled = true;
                 AssetsManager.GetPlayer().FindChild("PlayerShield").Enabled = true;
-                //Entity player = scene.EntityManager.Find("Player");
-
+                scene.Restart();
 
                 WaveServices.TimerFactory.CreateTimer("Timer1", TimeSpan.FromSeconds(5),
                 () =>

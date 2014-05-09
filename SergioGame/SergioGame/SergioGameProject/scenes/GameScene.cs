@@ -25,7 +25,7 @@ namespace SergioGameProject
 {
     public class GameScene : Scene
     {
-
+        public bool gameOver = false;
         public int maxAsteroids = 10;
         public int puntos = 0;
         public Entity asteroid = null;
@@ -52,6 +52,16 @@ namespace SergioGameProject
             this.AddSceneBehavior(new CollisionSceneBehavior(), SceneBehavior.Order.PostUpdate);
         }
 
+
+        public void Restart()
+        {
+            puntos = 0;
+            canBeDestroyed = false;
+            AssetsManager.GetRedLaserManager().Entity.Enabled = true;
+            AssetsManager.GetGreenLaserManager().Entity.Enabled = false;
+            AssetsManager.GetPlayer().FindComponent<PlayerBehavior>().currentLaserStat = PlayerBehavior.LaserStat.OneLaser;
+
+        }
 
         private void Sounds()
         {
@@ -157,6 +167,12 @@ namespace SergioGameProject
                 {
                     IsUpgradeCollidingWithPlayer();
                 }
+                if (myScene.gameOver)
+                {
+
+                    WaveServices.ScreenContextManager.Push(new ScreenContext("MenuContext", new GameOverScene()));
+                    myScene.gameOver = false;
+                }
 
 
             }
@@ -222,6 +238,7 @@ namespace SergioGameProject
                         {
                             AssetsManager.GetPlayer().Enabled = false;
                             Explosion();
+                            myScene.gameOver = true;
                             asteroidBehavior.breakAsteroid();
                         }
 
