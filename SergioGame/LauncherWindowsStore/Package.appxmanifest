@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="25443seryuxdev.Spacefight" Publisher="CN=BDE251F3-27BC-483B-BB44-3FC02A03722D" Version="1.0.0.1" />
+  <Identity Name="25443seryuxdev.Spacefight" Publisher="CN=BDE251F3-27BC-483B-BB44-3FC02A03722D" Version="1.0.0.4" />
   <Properties>
     <DisplayName>Space fight</DisplayName>
     <PublisherDisplayName>seryuxdev</PublisherDisplayName>
