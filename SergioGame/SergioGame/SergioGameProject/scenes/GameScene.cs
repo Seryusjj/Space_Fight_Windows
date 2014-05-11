@@ -42,6 +42,7 @@ namespace SergioGameProject
             InitAsteroids();
             EntityManager.Add(AssetsManager.GetExplosion());
             EntityManager.Add(AssetsManager.GetLaserUpgradeThree());
+            EntityManager.Add(AssetsManager.GetLaserUpgradeTwo());
 
             Sounds();
 
@@ -66,6 +67,7 @@ namespace SergioGameProject
             AssetsManager.GetRedLaserManager().Entity.Enabled = true;
             AssetsManager.GetGreenLaserManager().Entity.Enabled = false;
             AssetsManager.GetPlayer().FindComponent<PlayerBehavior>().currentLaserStat = PlayerBehavior.LaserStat.OneLaser;
+            AssetsManager.GetPlayer().FindComponent<PlayerBehavior>().shoot = true;
 
         }
 
@@ -174,12 +176,14 @@ namespace SergioGameProject
 
             protected override void Update(TimeSpan gameTime)
             {
-                breakAsteroid();
-                if (AssetsManager.GetPlayer().Enabled == true) { collideWithPlayer(); }
+                BreakAsteroid();
+                if (AssetsManager.GetPlayer().Enabled == true) { CollideAsteroidWithPlayer(); }
 
-                moveAsteroidAndReactivate();
+                MoveAsteroidAndReactivate();
                 InsertLaserUpgrade();
-                if (AssetsManager.GetLaserUpgradeThree().Enabled)
+                RealocateUpgradeGreen();
+                RealocateUpgradeReed();
+                if (AssetsManager.GetLaserUpgradeThree().Enabled || AssetsManager.GetLaserUpgradeTwo().Enabled)
                 {
                     IsUpgradeCollidingWithPlayer();
                 }
@@ -198,47 +202,83 @@ namespace SergioGameProject
 
                 if (myScene.puntos > 100 && AssetsManager.GetLaserUpgradeThree().Enabled == false && !collected && myScene.puntos < 120)
                 {
-
-                    AssetsManager.GetLaserUpgradeThree().Enabled = true;
+                    RealocateUpgradeReed();
+                    AssetsManager.GetLaserUpgradeTwo().Enabled = true;
 
                     collected = false;
                 }
                 else if (myScene.puntos > 1000 && AssetsManager.GetLaserUpgradeThree().Enabled == false && !collected && myScene.puntos < 1020)
                 {
+                    RealocateUpgradeGreen();
                     AssetsManager.GetLaserUpgradeThree().Enabled = true;
+                        collected = false;
 
                 }
 
             }
 
+            private void RealocateUpgradeReed()
+            {
+                if (AssetsManager.GetLaserUpgradeTwo().Enabled == false)
+                {
+                    var transform = AssetsManager.GetLaserUpgradeTwo().FindComponent<Transform2D>();
+                    int ancho = (int)(WaveServices.ViewportManager.VirtualWidth - transform.Rectangle.Width);
+                    transform.X = WaveServices.Random.Next(0, ancho);
+                    transform.Y = 0;
+
+                }
+            }
+
+            private void RealocateUpgradeGreen()
+            {
+                if (AssetsManager.GetLaserUpgradeThree().Enabled == false)
+                {
+                    var transform = AssetsManager.GetLaserUpgradeThree().FindComponent<Transform2D>();
+                    int ancho = (int)(WaveServices.ViewportManager.VirtualWidth - transform.Rectangle.Width);
+                    transform.X = WaveServices.Random.Next(0, ancho);
+                    transform.Y = 0;
+
+                }
+            }
+
             private void IsUpgradeCollidingWithPlayer()
             {
-                Entity laserUpgrade = AssetsManager.GetLaserUpgradeThree();
+                Entity laserUpgradeGreen = AssetsManager.GetLaserUpgradeThree();
                 Entity player = AssetsManager.GetPlayer();
+                Entity laserUpgradeTwo = AssetsManager.GetLaserUpgradeTwo();
 
                 PerPixelCollider playerCollider = player.FindComponent<PerPixelCollider>();
-                PerPixelCollider laserUpgradeCollider = laserUpgrade.FindComponent<PerPixelCollider>();
-                if (laserUpgradeCollider.Intersects(playerCollider))
+                PerPixelCollider laserUpgradeColliderGreen = laserUpgradeGreen.FindComponent<PerPixelCollider>();
+                PerPixelCollider laserUpgradeColliderRed = laserUpgradeTwo.FindComponent<PerPixelCollider>();
+                if (laserUpgradeColliderGreen.Intersects(playerCollider))
                 {
-                    laserUpgrade.Enabled = false;
+                    laserUpgradeGreen.Enabled = false;
                     PlayerBehavior playerBehaviour = player.FindComponent<PlayerBehavior>();
                     playerBehaviour.currentLaserStat = PlayerBehavior.LaserStat.ThreeLasers;
 
-                    playerBehaviour.shoot = false;
 
+                    //ponemos el laser de coloer verde
+                    playerBehaviour.shoot = false;
                     AssetsManager.GetRedLaserManager().Entity.Enabled = false;
                     AssetsManager.GetGreenLaserManager().Entity.Enabled = true;
 
                     playerBehaviour.shoot = true;
 
                 }
+                else if (laserUpgradeColliderRed.Intersects(playerCollider))
+                {
+                    laserUpgradeTwo.Enabled = false;
+                    PlayerBehavior playerBehaviour = player.FindComponent<PlayerBehavior>();
+                    playerBehaviour.currentLaserStat = PlayerBehavior.LaserStat.TwoLasers;
 
-
+                }
 
             }
 
 
-            private void collideWithPlayer()
+
+
+            private void CollideAsteroidWithPlayer()
             {
                 for (int i = 0; i < myScene.maxAsteroids; i++)
                 {
@@ -256,6 +296,7 @@ namespace SergioGameProject
                             Explosion();
                             myScene.gameOver = true;
                             asteroidBehavior.breakAsteroid();
+                            AssetsManager.GetPlayer().FindComponent<PlayerBehavior>().shoot = false;
                         }
 
                     }
@@ -264,7 +305,7 @@ namespace SergioGameProject
             }
 
 
-            private void breakAsteroid()
+            private void BreakAsteroid()
             {
 
                 Entity laser = null;
@@ -316,7 +357,7 @@ namespace SergioGameProject
             /// este metodo tiene que dar un nueva posicion random al los asteroides inactivos 
             /// y reactivarlos
             /// </summary>
-            private void moveAsteroidAndReactivate()
+            private void MoveAsteroidAndReactivate()
             {
                 if (myScene.asteroid != null)
                 {
@@ -324,7 +365,6 @@ namespace SergioGameProject
                     {
                         var transform = myScene.asteroid.FindComponent<Transform2D>();
                         int ancho = (int)(WaveServices.ViewportManager.VirtualWidth - myScene.asteroid.FindComponent<Transform2D>().Rectangle.Width);
-                        int alto = (int)(WaveServices.ViewportManager.VirtualHeight - myScene.asteroid.FindComponent<Transform2D>().Rectangle.Height);
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
 
@@ -332,7 +372,7 @@ namespace SergioGameProject
                     }
                 }
 
-                reactivateAsteroids();
+                ReactivateAsteroids();
 
 
 
@@ -348,8 +388,8 @@ namespace SergioGameProject
                 var explosionTransform = AssetsManager.GetExplosion().FindComponent<Transform2D>();
                 var shipTransform = AssetsManager.GetPlayer().FindComponent<Transform2D>();
 
-                explosionTransform.X = shipTransform.X + explosionTransform.Rectangle.Width;
-                explosionTransform.Y = shipTransform.Y + explosionTransform.Rectangle.Height;
+                explosionTransform.X = shipTransform.X - explosionTransform.Rectangle.Width;
+                explosionTransform.Y = shipTransform.Y - explosionTransform.Rectangle.Height;
 
                 var anim2D = AssetsManager.GetExplosion().FindComponent<Animation2D>();
                 anim2D.CurrentAnimation = "Explosion";
@@ -360,7 +400,7 @@ namespace SergioGameProject
             /// Reactiva los asteroides que se escapan por el fondo de la pantalla
             /// dandoles una nueva posicion random X y y = 0
             /// </summary>
-            private void reactivateAsteroids()
+            private void ReactivateAsteroids()
             {
                 for (int i = 0; i < myScene.maxAsteroids; i++)
                 {
@@ -369,7 +409,7 @@ namespace SergioGameProject
                     if (asteroid.Enabled == false)
                     {
                         var transform = asteroid.FindComponent<Transform2D>();
-                        int ancho = (int)(WaveServices.ViewportManager.VirtualWidth - asteroid.FindComponent<Transform2D>().Rectangle.Width);
+                        int ancho = (int)(WaveServices.ViewportManager.VirtualWidth - transform.Rectangle.Width);
                         transform.X = WaveServices.Random.Next(0, ancho);
                         transform.Y = 0;
                         asteroid.FindComponent<AsteroidBehavior>().speed = WaveServices.Random.Next(1, 6);

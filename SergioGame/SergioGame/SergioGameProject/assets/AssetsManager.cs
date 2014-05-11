@@ -33,6 +33,7 @@ namespace SergioGameProject
         private static TextBlock textBlockForScoreInScreen;
         private static Entity scoreInScreen;
         private static Entity laserUpgradeThree;
+        private static Entity laserUpgradeTwo;
         private static ProyectileManager redLaserManager;
         private static ProyectileManager greenLaserManager;
         private static Entity explosion;
@@ -78,20 +79,45 @@ namespace SergioGameProject
             return explosion;
         }
 
+        public static Entity GetLaserUpgradeTwo()
+        {
+            if (laserUpgradeTwo == null)
+            {
+                laserUpgradeTwo = new Entity("laserUpgradeRed").AddComponent(new Transform2D()
+                {
+
+                    X = 100,
+                    Y = 100
+                });
+                Animation2D animation = Animation2D.Create<TexturePackerGenericXml>(PathManager.laserUpgradeTwoRedXml);
+                animation.Add("Rotate", new SpriteSheetAnimationSequence() { First = 1, Length = 4, FramesPerSecond = 2 });
+                laserUpgradeTwo.AddComponent(new PerPixelCollider(PathManager.laserUpgradeTwoRed, 0));
+                laserUpgradeTwo.AddComponent(new LaserUpgradeBehaviour());
+                laserUpgradeTwo.AddComponent(new Sprite(PathManager.laserUpgradeTwoRed));
+                laserUpgradeTwo.AddComponent(new AnimatedSpriteRenderer(DefaultLayers.Alpha));
+                laserUpgradeTwo.AddComponent(animation);
+                laserUpgradeTwo.Enabled = false;
+            }
+            return laserUpgradeTwo;
+        }
+
         public static Entity GetLaserUpgradeThree()
         {
             if (laserUpgradeThree == null)
             {
-                laserUpgradeThree = new Entity("laserUpgrade").AddComponent(new Transform2D()
+                laserUpgradeThree = new Entity("laserUpgradeGreen").AddComponent(new Transform2D()
             {
 
                 X = 100,
                 Y = 100
             });
+                Animation2D animation = Animation2D.Create<TexturePackerGenericXml>(PathManager.laserUpgradeThreeGreenXml);
+                animation.Add("Rotate", new SpriteSheetAnimationSequence() { First = 1, Length = 4, FramesPerSecond = 2 });
                 laserUpgradeThree.AddComponent(new PerPixelCollider(PathManager.laserUpgradeThreeGreen, 0));
                 laserUpgradeThree.AddComponent(new LaserUpgradeBehaviour());
                 laserUpgradeThree.AddComponent(new Sprite(PathManager.laserUpgradeThreeGreen));
-                laserUpgradeThree.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                laserUpgradeThree.AddComponent(new AnimatedSpriteRenderer(DefaultLayers.Alpha));
+                laserUpgradeThree.AddComponent(animation);
                 laserUpgradeThree.Enabled = false;
             }
             return laserUpgradeThree;

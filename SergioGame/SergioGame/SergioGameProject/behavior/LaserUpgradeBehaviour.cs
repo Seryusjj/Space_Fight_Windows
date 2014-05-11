@@ -16,6 +16,9 @@ namespace SergioGameProject
     class LaserUpgradeBehaviour : Behavior
     {
 
+        [RequiredComponent]
+        private Animation2D anim2D;
+
 
 
         public int speed { get; set; }
@@ -34,7 +37,7 @@ namespace SergioGameProject
         public LaserUpgradeBehaviour()
             : base("LaserUpgradeBehaviour")
         {
-            speed = 1;
+            speed = 3;
          
             trans2D = null;
 
@@ -64,6 +67,10 @@ namespace SergioGameProject
                 //desplaza el asteroide
                 moveElement(gameTime.Milliseconds/10);
 
+                if (!anim2D.State.ToString().Equals("Playing"))
+                {
+                    anim2D.Play();
+                }
             
 
 

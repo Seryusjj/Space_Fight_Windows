@@ -15,6 +15,9 @@ namespace SergioGameProject.assets
         public static String explosionSprites = "Content/Player/explosionSpriteSheet.wpk";
         public static String explosionXml = "Content/Player/explosionSpriteSheet.xml";
         public static String laserUpgradeThreeGreen = "Content/Player/laserUpgrade.wpk";
+        public static String laserUpgradeTwoRed = "Content/Player/laserUpgrade0.wpk";
+        public static String laserUpgradeThreeGreenXml = "Content/Player/laserUpgrade.xml";
+        public static String laserUpgradeTwoRedXml = "Content/Player/laserUpgrade.xml";
         public static String player = "Content/Player/Player.wpk";
         public static String playerXml = "Content/Player/Player.xml";
         public static String playerShield = "Content/Player/shield.wpk";

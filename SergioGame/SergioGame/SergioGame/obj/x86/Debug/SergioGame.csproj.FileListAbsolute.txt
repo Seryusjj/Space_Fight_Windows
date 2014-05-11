@@ -114,3 +114,5 @@ C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\b
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\Player.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\shield.wpk
 C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Common\SkyLvl1.wpk
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\laserUpgrade.xml
+C:\Users\Sergio\Documents\GitHub\Windows-Game\SergioGame\SergioGame\SergioGame\bin\x86\Debug\Content\Player\laserUpgrade0.wpk

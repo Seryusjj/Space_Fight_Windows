@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:034abd46f423920f3ee86cfbd8f27910:27c36891a6089aba7ce77d9c9f363e2b:ffacef50bf9cd5115dd99e7666644702$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+-->
+<TextureAtlas imagePath="laserUpgrade.png" width="256" height="256">
+    <sprite n="laserUpgrade0.png" x="2" y="2" w="98" h="98" oX="13" oY="12" oW="128" oH="128"/>
+    <sprite n="laserUpgrade1.png" x="98" y="102" w="88" h="88" oX="17" oY="15" oW="128" oH="128"/>
+    <sprite n="laserUpgrade2.png" x="2" y="102" w="94" h="96" oX="14" oY="10" oW="128" oH="128"/>
+</TextureAtlas>

@@ -62,6 +62,9 @@
     <Content Include="Content\Player\explosionSpriteSheet.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Player\laserUpgrade.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Player\Player.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -79,18 +82,21 @@
     <None Include="Content\Music\rock_breaking.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Player\explosionSpriteSheet.wpk">
+    <Content Include="Content\Player\explosionSpriteSheet.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Player\laserUpgrade.wpk">
+    </Content>
+    <Content Include="Content\Player\laserUpgrade.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Player\Player.wpk">
+    </Content>
+    <Content Include="Content\Player\Player.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Player\shield.wpk">
+    </Content>
+    <Content Include="Content\Player\shield.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Content\Player\laserUpgrade0.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\Proyectiles\laserGreen.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
