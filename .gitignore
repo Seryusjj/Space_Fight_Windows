@@ -14,8 +14,8 @@ SergioGame/SergioGameWindowsStore.sln
 
 #ignorar elementos compilados
 
-**/**/**/obj
-**/**/**/bin
+#**/**/**/obj
+#**/**/**/bin
 
 
 
