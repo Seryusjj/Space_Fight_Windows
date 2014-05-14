@@ -20,5 +20,9 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
+SergioGame/SergioGame/obj
+SergioGame/SergioGame/bin
+SergioGame/LauncherWindowsStore
+SergioGame/SergioGameWindowsStore.sln
 
 
