@@ -65,7 +65,8 @@ namespace SergioGameProject
             if (explosion == null)
             {
                 explosion = new Entity("explosion")
-                    .AddComponent(new Transform2D() { 
+                    .AddComponent(new Transform2D()
+                    {
                         XScale = 3,
                         YScale = 2.5f,
                     })
@@ -106,11 +107,11 @@ namespace SergioGameProject
             if (laserUpgradeThree == null)
             {
                 laserUpgradeThree = new Entity("laserUpgradeGreen").AddComponent(new Transform2D()
-            {
+                {
 
-                X = 100,
-                Y = 100
-            });
+                    X = 100,
+                    Y = 100
+                });
                 Animation2D animation = Animation2D.Create<TexturePackerGenericXml>(PathManager.laserUpgradeThreeGreenXml);
                 animation.Add("Rotate", new SpriteSheetAnimationSequence() { First = 1, Length = 4, FramesPerSecond = 2 });
                 laserUpgradeThree.AddComponent(new PerPixelCollider(PathManager.laserUpgradeThreeGreen, 0));
@@ -256,7 +257,7 @@ namespace SergioGameProject
         /// <returns></returns>
         private static Entity GetBackgroudPart1()
         {
-            
+
 
             Entity background = new Entity("backGround1").AddComponent(new Transform2D()
             {
@@ -360,7 +361,7 @@ namespace SergioGameProject
                 {
                     X = 0,
                     Y = y,
-                    XScale = WaveServices.ViewportManager.VirtualWidth ,
+                    XScale = WaveServices.ViewportManager.VirtualWidth,
                     YScale = 0.5f,
                     DrawOrder = 1f
                 })
