@@ -1,4 +1,4 @@
 Windows-Game
 ============
 
-[[File:Capturas/gameplay2.png|thumb|left|alt=A Agameplay capture.]]
+![](https://github.com/Seryusjj/Windows-Game/blob/master/Capturas/gameplay2.png)
